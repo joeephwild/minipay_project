@@ -13,7 +13,7 @@ const LearnAiCard = () => {
     setActive("test");
   };
   return (
-    <div className="bg-Accent w-full py-[16px] px-[15px] rounded-[8px]">
+    <div className="bg-Accent w-[80%] md:w-full py-[16px] px-[15px] rounded-[8px]">
       <div className="flex items-center justify-between w-full ">
         <div className="flex flex-col items-start space-y-[16px]">
           <span className="text-[20px] font-semibold text-Black">
@@ -27,7 +27,7 @@ const LearnAiCard = () => {
         <Image
           src={robot}
           alt="robot"
-          className="w-[81.289px] h-[115.332px] object-contain"
+          className="w-[81.289px] hidden md:inline-block h-[115.332px] object-contain"
         />
       </div>
       <button

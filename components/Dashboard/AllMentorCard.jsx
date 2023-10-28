@@ -10,7 +10,7 @@ const AllMentorCard = () => {
   const { alllMentors } = useMentor()
   const { accountName} = useUser()
   return (
-    <div className="flex items-start justify-start gap-[20px] w-[700px] bg-white py-[34px] px-[18.89px]">
+    <div className="flex items-start justify-start gap-[20px] w-[300px] md:w-[700px] bg-white py-[34px] px-[18.89px]">
       {alllMentors.slice(0, 6).map((item, i) => (
         <Link href={`/mentor/${item.accountOwner}`} key={i} className="flex flex-col items-start w-full">
           <Avatar className="rounded-full w-[28px] h-[28px]" size="58px" src={item.userName} />

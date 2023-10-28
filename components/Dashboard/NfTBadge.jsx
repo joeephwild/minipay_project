@@ -8,7 +8,7 @@ const NfTBadge = () => {
       <Image
         src={badges}
         alt="badge"
-        className="w-[124px] h-[155px] object-contain"
+        className="md:w-[124px] h-[155px] object-contain"
       />
     </div>
   );

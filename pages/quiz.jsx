@@ -8,7 +8,7 @@ import { useFlow } from "../context/FlowContext";
 import { FailedModal, WinModal } from "../components/quiz";
 
 const Quiz = () => {
-      // Initialize lives from local storage, or set it to 5 if not found.
+  // Initialize lives from local storage, or set it to 5 if not found.
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [lives, setLives] = useState(null);
@@ -19,14 +19,19 @@ const Quiz = () => {
   const [showModal, setShowModal] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [failed, setFailed] = useState(false);
+  const route = useRouter();
 
   useEffect(() => {
-    const initialLives = typeof window !== 'undefined' ? localStorage.getItem("userLives") || 5 : 5;
+    const initialLives =
+      typeof window !== "undefined"
+        ? localStorage.getItem("userLives") || 5
+        : 5;
     setLives(Number(initialLives));
-    if (gameOver && lives < 0) {
+    if (lives === 0) {
       setFailed(true);
+      setGameOver(true);
     }
-  }, [gameOver]);
+  }, [gameOver, failed, lives]);
 
   const question = quizDataKoreanToEnglish[currentQuestion];
   const handleSelectAnswer = (answer) => {
@@ -38,7 +43,7 @@ const Quiz = () => {
       setLives(newLives);
 
       // Store lives in local storage (only on the client side)
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem("userLives", newLives);
       }
 
@@ -82,7 +87,6 @@ const Quiz = () => {
           />
         )}
 
-
         {failed && (
           <FailedModal
             closeModal={() => setFailed(false)}
@@ -90,7 +94,7 @@ const Quiz = () => {
           />
         )}
         <div className="flex items-center justify-around py-4 px-6">
-          <XIcon className="w-[20px] h-[20px]" />
+          <XIcon onClick={() => route.back()} className="w-[20px] h-[20px]" />
           <input
             type="range"
             className="w-[80%] in-range:bg-Accent"
@@ -117,11 +121,11 @@ const Quiz = () => {
         </div>
 
         <div className="flex mt-[42px] flex-col items-center justify-center">
-          <h1 className="text-[32px] text-Black font-medium">
+          <h1 className="md:text-[32px] text-[24px] text-center text-Black font-medium">
             {question?.question}
           </h1>
           {/** uestion */}
-          <span className="mt-[32px] border-2 text-[24px] border-[#FEEBDD] items-center justify-center gap-[10px] text-Black py-[15px] px-[25px]">
+          <span className="mt-[32px] border-2 text-[16px] md:text-[24px] border-[#FEEBDD] items-center justify-center gap-[10px] text-Black py-[15px] px-[25px]">
             {question.sentenceKorean}
           </span>
           {selectedAnswer && (
@@ -140,8 +144,8 @@ const Quiz = () => {
             {question.options?.map((item, i) => (
               <button
                 key={i}
-                disabled={lives < 0 && lives === 0}
-                className={`text-Black text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
+                disabled={failed === "true" && gameOver === "true"}
+                className={`text-Black text-[12px] md:text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
                   selectedAnswer === item.toLowerCase() && correctAnswer
                     ? "border-green-500 text-green-500"
                     : ""
@@ -160,7 +164,7 @@ const Quiz = () => {
 
           <button
             onClick={handleNextQuestion}
-            className="bg-Accent items-center justify-center mt-[134px] py-[20px] px-[80px] text-[20px] font-medium text-Black"
+            className="bg-Accent items-center justify-center mt-[134px] py-[20px] px-[80px] text-[14px] mb-6 md:text-[20px] font-medium text-Black"
             disabled={!correctAnswer || lives === 0}
           >
             Submit answer

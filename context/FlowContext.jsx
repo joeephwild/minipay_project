@@ -14,11 +14,12 @@ export const FlowProvider = ({ children }) => {
   const [active, setActive] = useState("learn");
   const [modalOpen, setModalOpen] = useState(false);
   const route = useRouter();
+  const [miniPay, setMinipay] = useState(false)
 
   // Log in function
   const logIn = async () => {
     try {
-     
+      
     } catch (error) {
       alert("error connectting wallet");
       console.error(error);
@@ -37,7 +38,11 @@ export const FlowProvider = ({ children }) => {
   // // Effect to initialize Magic when the component mounts
   useEffect(() => {
     const getCurrentUser = async () => {
-
+      if (window.ethereum && window.ethereum.isMiniPay) {
+        setMinipay(true)
+    } else {
+        console.error("MiniPay provider not detected");
+    }
     };
     getCurrentUser();
   }, [currentUser]);
@@ -52,6 +57,7 @@ export const FlowProvider = ({ children }) => {
         active,
         modalOpen,
         setModalOpen,
+        miniPay
       }}
     >
       {children}

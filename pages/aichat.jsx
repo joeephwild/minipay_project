@@ -50,18 +50,18 @@ const AiChat = () => {
     <DefaultLayout>
       <Navbar />
       <div className="flex items-start">
-        <div className="w-[80%] overflow-y-scroll scrollbar-hide text-Black m-[10px]">
+        <div className="md:w-[80%] w-full overflow-y-scroll scrollbar-hide text-Black md:m-[10px]">
           <span className="text-[28px] my-[31px] mx-[37px] text-Black">
             Learn with AI
           </span>
-          <div className="flex-1 min-h-screen mt-[20px] scrollbar m-9">
+          <div className="flex-1 min-h-screen w-full mt-[20px] scrollbar m-9">
             {chatHistories.map((item, i) => (
               <ChatCompoents key={i} {...item} />
             ))}
           </div>
           <InputBox text={text} setText={setText} />
         </div>
-        <div className="w-[20%] bg-black h-screen"></div>
+        <div className="md:w-[20%] hidden bg-black h-screen"></div>
       </div>
     </DefaultLayout>
   );

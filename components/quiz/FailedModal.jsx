@@ -34,7 +34,7 @@ const FailedModal = ({ closeModal, actionButton }) => {
         <div className="w-full mt-8">
           <button
             className="bg-Accent w-full text-center rounded font-semibold py-4"
-            onClick={() => route.push("/heart")}
+            onClick={() => route.push("/store")}
           >
             Purchase An Hearts
           </button>

@@ -39,7 +39,7 @@ const InputBox = ({ setText, text }) => {
     }
   };
   return (
-    <div className="flex items-center px-[21px] py-9 justify-around w-[60%] space-x-10 fixed bottom-0">
+    <div className="flex items-center px-[21px] py-9 justify-around md:w-[60%] w-full space-x-10 fixed bottom-0">
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}

@@ -10,15 +10,15 @@ const PodcastCard = ({
   author,
 }) => {
   return (
-    <div className="bg-white cursor-pointer w-full p-4 shadow-md rounded-lg">
-      <div className="flex items-center">
-        <div className="w-24 h-24">
+    <div className="bg-white cursor-pointer w-[300px] min-h-[250px] md:w-full p-4 shadow-md rounded-lg">
+      <div className="md:flex flex-col space-y-[15px] items-center">
+        <div>
           <Image
             src={contentImage}
             alt={contentName}
             width={96}
             height={96}
-            className="rounded-lg"
+            className="md:w-24 md:h-24 w-full h-[96px] object-cover rounded-lg"
           />
         </div>
         <div className="ml-4 flex flex-col flex-grow">
@@ -33,8 +33,12 @@ const PodcastCard = ({
               Learn the perfect French accent
             </span>
           </div>
+          <button className="bg-black  text-Accent flex items-center justify-center py-2 px-4 rounded-lg">
+          <PlayIcon className="w-5 h-5 mr-2" />
+          <span className="text-sm">Play Now</span>
+        </button>
         </div>
-        <button className="bg-black text-Accent flex items-center py-2 px-4 rounded-lg">
+        <button className="bg-black hidden text-Accent md:flex items-center py-2 px-4 rounded-lg">
           <PlayIcon className="w-5 h-5 mr-2" />
           <span className="text-sm">Play Now</span>
         </button>
