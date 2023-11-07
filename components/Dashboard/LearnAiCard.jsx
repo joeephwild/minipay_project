@@ -13,7 +13,7 @@ const LearnAiCard = () => {
     setActive("test");
   };
   return (
-    <div className="bg-Accent w-[80%] md:w-full py-[16px] px-[15px] rounded-[8px]">
+    <div className="w-full h-full bg-Accent min-w-[80%] md:w-full py-[16px] px-[15px] rounded-[8px]">
       <div className="flex items-center justify-between w-full ">
         <div className="flex flex-col items-start space-y-[16px]">
           <span className="text-[20px] font-semibold text-Black">

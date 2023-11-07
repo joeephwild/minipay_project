@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "private": true,
   "scripts": {
-    "dev": "cross-env NEXT_PUBLIC_FLOW_NETWORK=local next dev",
+    "dev": "next dev",
     "dev-wait": "npm run dev & wait-on tcp:8888 tcp:8701 tcp:3000",
     "dev:local": "concurrently \"npm run flow:emulator\" \"npm run flow:dev-wallet\" \"npm run dev:local:flow\"",
     "dev:local:flow": "npm run dev-wait && npm run flow:dev",

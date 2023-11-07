@@ -59,7 +59,7 @@ const StoreCard = () => {
   };
 
   return (
-    <div className=' flex gap-[20px] space-x-9  p-4'>
+    <div className=' flex flex-wrap gap-[20px] space-x-9  p-4'>
       {Packages.map((item, i) => (
         <div key={i} className='w-[318px] bg-white p-9'>
           <Image 

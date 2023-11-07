@@ -7,9 +7,12 @@ const dashboard = () => {
   return (
     <DefaultLayout>
       <Navbar />
-      <div className="grid md:grid-cols-2 grid-cols-1 mx-[20px] my-[20px] w-full h-screen">
-        <DahboardRight />
-        <div className="my-[809px]">
+      <div className="flex flex-col md:flex-row mx-[20px] my-[20px] w-full h-screen overflow-y-scroll">
+        <div className="w-[50%]">
+          <DahboardRight />
+        </div>
+
+        <div className="my-[10%] md:my-0 lg:w-[50%]">
           <DashboardLeft />
         </div>
       </div>

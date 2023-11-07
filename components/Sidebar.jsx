@@ -14,7 +14,7 @@ const Sidebar = () => {
     route.push(routePath);
   };
   return (
-    <div className="md:w-[10%] hidden w-[0%] h-screen bg-Black pt-[24px]">
+    <div className="lg:w-[20%] lg:inline-block hidden w-[0%] h-screen bg-Black pt-[24px]">
       <div className="flex items-center space-x-[9px]  px-[24px]">
         <Image
           src={logo}

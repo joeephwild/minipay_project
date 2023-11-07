@@ -79,7 +79,7 @@ const Quiz = () => {
   return (
     <DefaultLayout>
       <Navbar />
-      <div className="text-Black">
+      <div className="text-Black ">
         {showModal && (
           <WinModal
             closeModal={() => setShowModal(false)}
@@ -105,15 +105,6 @@ const Quiz = () => {
           />
           <button className="bg-Black text-Accent p-2 rounded-[5px]">
             <div className="flex items-center space-x-6">
-              {/* {Array.from({ length: 5 }).map((_, index) => (
-                <div key={index} className="w-6 h-6">
-                  {index < lives ? (
-                    <HeartIcon className="text-Accent w-[32px] h-[32px]" />
-                  ) : (
-                    <HeartIcon className="text-Grey w-[32px] h-[32px]" />
-                  )}
-                </div>
-              ))} */}
               <HeartIcon className="text-Accent w-[32px] h-[32px]" />
               <span>{lives}</span>
             </div>
@@ -132,8 +123,8 @@ const Quiz = () => {
             <span
               className={
                 correctAnswer
-                  ? `mt-[16px] p-4 bg-gray-300 text-lg space-x-2 text-green-600`
-                  : `mt-[16px] p-4 bg-gray-300 text-lg space-x-2 text-red-600`
+                  ? `mt-[16px] p-4 bg-gray-300 text-lg lg:text-sm space-x-2 text-green-600`
+                  : `mt-[16px] p-4 bg-gray-300 text-lg lg:text-sm space-x-2 text-red-600`
               }
             >
               {correctAnswer && "Correct"}
