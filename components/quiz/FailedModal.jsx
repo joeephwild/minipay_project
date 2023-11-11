@@ -8,7 +8,7 @@ const FailedModal = ({ closeModal, actionButton }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-white p-4 md:p-8 lg:p-12 xl:p-16 rounded-2xl">
+      <div className="w-full md:w-[60%] lg:w-[40%] xl:w-[30%] bg-white p-4 md:p-8 lg:p-12 xl:p-16 rounded-2xl">
         <div className="flex w-full justify-between">
           <h1 className="text-2xl md:text-3xl font-semibold">
             You ran out of hearts!

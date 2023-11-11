@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useWallet } from '@mintbase-js/react'
 import { useRouter } from "next/router";
+import { useConnect, useAccount } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 // Create the context with default values
 const FlowContext = createContext(undefined);
@@ -14,50 +15,36 @@ export const FlowProvider = ({ children }) => {
   const [active, setActive] = useState("learn");
   const [modalOpen, setModalOpen] = useState(false);
   const route = useRouter();
-  const [miniPay, setMinipay] = useState(false)
+  const [miniPay, setMinipay] = useState(false);
+  const { address } = useAccount();
 
-  // Log in function
-  const logIn = async () => {
-    try {
-      
-    } catch (error) {
-      alert("error connectting wallet");
-      console.error(error);
-    }
-  };
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
 
-  // Log out function
-  const logOut = async () => {
-    try {
-    
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // // Effect to initialize Magic when the component mounts
   useEffect(() => {
-    const getCurrentUser = async () => {
-      if (window.ethereum && window.ethereum.isMiniPay) {
-        setMinipay(true)
-    } else {
-        console.error("MiniPay provider not detected");
-    }
+    const getAddress = async () => {
+      if (address) {
+        setCurrentUser(address);
+      }
     };
-    getCurrentUser();
-  }, [currentUser]);
+    getAddress();
+  }, [address]);
+
+  useEffect(() => {
+    connect();
+  }, []);
 
   return (
     <FlowContext.Provider
       value={{
         currentUser,
-        logIn,
         // logOut,
         setActive,
         active,
         modalOpen,
         setModalOpen,
-        miniPay
+        miniPay,
       }}
     >
       {children}

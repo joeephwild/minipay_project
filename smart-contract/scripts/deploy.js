@@ -7,13 +7,26 @@
 const hre = require("hardhat");
 
 async function main() {
-  const profile = await hre.ethers.deployContract("Content");
+  const content = await hre.ethers.deployContract("Content");
+  const communities = await hre.ethers.deployContract("Communities");
+  const mentors = await hre.ethers.deployContract("Mentors");
+  const nftBadges = await hre.ethers.deployContract("NftBadge");
+  const post = await hre.ethers.deployContract("Post");
+  const profile = await hre.ethers.deployContract("Profile");
 
   await profile.waitForDeployment();
+  await content.waitForDeployment();
+  await communities.waitForDeployment();
+  await mentors.waitForDeployment();
+  await nftBadges.waitForDeployment();
+  await post.waitForDeployment();
 
-  console.log(
-    `Lock with  deployed to ${profile.target}`
-  );
+  console.log(`profile deployed to ${profile.target}`);
+  console.log(`content deployed to ${content.target}`);
+  console.log(`communites deployed to ${communities.target}`);
+  console.log(`mentors deployed to ${mentors.target}`);
+  console.log(`nftBages deployed to ${nftBadges.target}`);
+  console.log(`post deployed to ${post.target}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

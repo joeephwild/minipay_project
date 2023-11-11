@@ -21,16 +21,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@celo/rainbowkit-celo": "^1.1.0",
     "@heroicons/react": "^1.0.6",
-    "@mintbase-js/react": "^0.4.1-beta.6-prerelease",
     "@mintbase-js/storage": "^0.4.1-beta.6-prerelease",
-    "@near-wallet-selector/default-wallets": "^8.1.4",
     "@onflow/fcl": "^1.6.0",
     "@onflow/typedefs": "1.1.0",
     "@particle-network/auth": "^1.2.1",
     "@particle-network/connect-react-ui": "^1.2.0",
     "@particle-network/provider": "^1.2.0",
-    "@rainbow-me/rainbowkit": "^1.1.0",
+    "@rainbow-me/rainbowkit": "^1.2.0",
     "ethers": "^5.7.2",
     "firebase": "^10.4.0",
     "ipfs-http-client": "^60.0.1",
@@ -41,11 +40,12 @@
     "react": "18.2.0",
     "react-avatar": "^5.0.3",
     "react-dom": "18.2.0",
+    "react-icons": "^4.11.0",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.16.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "viem": "^1.15.4",
-    "wagmi": "^1.4.3",
+    "wagmi": "^1.4.6",
     "web3": "^4.1.2"
   },
   "devDependencies": {
