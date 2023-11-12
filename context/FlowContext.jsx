@@ -17,6 +17,7 @@ export const FlowProvider = ({ children }) => {
   const route = useRouter();
   const [miniPay, setMinipay] = useState(false);
   const { address } = useAccount();
+  console.log(currentUser)
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),

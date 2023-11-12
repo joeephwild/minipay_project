@@ -10,12 +10,20 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { logo } from "../assets/images";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const { setActive, active, currentUser } = useFlow();
   const route = useRouter();
+  const { address } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+
+  const { disconnect } = useDisconnect();
 
   const handleRoute = (item, routePath) => {
     setActive(item);
@@ -39,7 +47,7 @@ export default function Navbar() {
           <Link href="/">
             <Image src={logo} alt="logo" className="object-contain md:hidden" />
           </Link>
-          {currentUser && (
+          {address && (
             <div className="hidden md:flex space-x-4">
               <Link href="/become-mentor">
                 <button className="text-Black bg-Accent px-6 py-2.5 rounded-lg">
@@ -55,27 +63,16 @@ export default function Navbar() {
           )}
         </div>
         <div className="md:flex items-center hidden space-x-4">
-          {isWalletConnected ? (
-            <div className="relative">
-              <button className="text-white" onClick={toggleMenu}>
-                Profile <IoIosArrowDown className="inline-block" />
-              </button>
-              <div
-                className={`menu ${
-                  isMenuOpen
-                    ? "block absolute w-[200px] h-[200px] top-[36px] bg-gray-800 right-0"
-                    : "hidden"
-                }`}
-              >
-                <p>Address: Your Wallet Address</p>
-                <Avatar name="joseph" className="rounded-full" size={38} />
-                <Link href="/profile">
-                  <p className="text-white">View Profile</p>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <ConnectButton />
+          {!address && (
+          <ConnectButton  />
+          )}
+          {address && (
+            <button
+              onClick={disconnect}
+              className="text-Black bg-Accent px-6 py-2.5 rounded-lg"
+            >
+              {address.slice(0, 9)}...{address.slice(36, 40)}
+            </button>
           )}
         </div>
         <div className="md:hidden">

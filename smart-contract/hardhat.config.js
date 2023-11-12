@@ -10,7 +10,7 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-    testnet_aurora: {
+    alphajores: {
       url: 'https://testnet.aurora.dev',
       accounts: [`0x${AURORA_PRIVATE_KEY}`],
       // chainId: 1313161555,

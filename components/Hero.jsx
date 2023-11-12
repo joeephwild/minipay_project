@@ -1,15 +1,16 @@
-import { ConnectButton, useAccount } from "@particle-network/connect-react-ui";
-import { boy, plant, main, logo } from "../assets/images";
+import { boy, plant } from "../assets/images";
 import "@particle-network/connect-react-ui/dist/index.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { useFlow } from "../context/FlowContext";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 
 const Hero = () => {
-  const account = useAccount();
+  const { address } = useAccount();
   const route = useRouter();
-  const { miniPay } = useFlow();
+  const { currentUser } = useFlow();
   return (
     <div className="w-screen min-h-screen px-[18px] md:mr-[145px] md:ml-[85.71px] flex flex-col md:flex-row items-center overflow-y-scroll">
       <div className="flex flex-col md:w-[50%] md:mt-[89px] gap-[20px] mt-[40px] items-center justify-center">
@@ -23,29 +24,18 @@ const Hero = () => {
           Practice and learn new things with the platform.
         </span>
         <div className="flex items-center space-x-7  md:self-start md:text-start">
-          {!miniPay && (
-            <div>
-              {!account && (
-                <div className=" flex items-center">
-                  <ConnectButton />
-                </div>
-              )}
-            </div>
-          )}
+          <div>
+            {!address && (
+              <div className=" flex items-center">
+                <ConnectButton />
+              </div>
+            )}
+          </div>
 
-          {account && (
+          {address && (
             <button
               onClick={() => route.push("/dashboard")}
               className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
-            >
-              Dashboard
-            </button>
-          )}
-
-          {miniPay && (
-            <button
-              onClick={() => route.push("/dashboard")}
-              className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] lg:text-[16px] lg:px-[26px] text-[12px] font-bold"
             >
               Dashboard
             </button>
