@@ -63,7 +63,7 @@ const BeAMentor = () => {
               onClick={() => route.back()}
               className="text-black w-6 h-6 cursor-pointer"
             />
-            <h2 className="text-black text-2xl font-medium">
+            <h2 className="text-black text-sm md:text-2xl font-medium">
               Apply to become a language mentor on <span className="text-Accent">Lacent</span>
             </h2>
           </div>

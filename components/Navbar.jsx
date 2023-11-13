@@ -41,7 +41,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-Black p-4">
+    <nav className="bg-Black shadow-xl p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link href="/">
@@ -116,6 +116,20 @@ export default function Navbar() {
                 </span>
               </div>
             ))}
+            {address && (
+              <div className="flex space-x-3">
+                <Link href="/beAMentor">
+                  <button className="text-Black text-sm bg-Accent px-6 py-2 rounded-lg">
+                    Become a Mentor
+                  </button>
+                </Link>
+                <Link href="/profileOnboarding">
+                  <button className="text-Black text-sm bg-Accent px-6 py-2 rounded-lg">
+                    Select Language
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Add more links as needed */}

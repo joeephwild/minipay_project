@@ -79,7 +79,7 @@ const Quiz = () => {
   return (
     <DefaultLayout>
       <Navbar />
-      <div className="text-Black ">
+      <div className="text-Black  w-full h-screen overflow-y-scroll">
         {showModal && (
           <WinModal
             closeModal={() => setShowModal(false)}
@@ -136,7 +136,7 @@ const Quiz = () => {
               <button
                 key={i}
                 disabled={lives < 0}
-                className={`text-Black text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
+                className={`text-Black text-sm md:text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
                   selectedAnswer === item.toLowerCase() && correctAnswer
                     ? "border-green-500 text-green-500"
                     : ""
@@ -155,7 +155,7 @@ const Quiz = () => {
 
           <button
             onClick={handleNextQuestion}
-            className="bg-Accent items-center justify-center mt-[134px] py-[20px] px-[80px] text-[14px] mb-6 md:text-[20px] font-medium text-Black"
+            className="bg-Accent fixed bottom-0 right-4 items-center justify-center mt-[134px] py-[20px] px-[80px] text-[14px] mb-6 md:text-[20px] font-medium text-Black"
             disabled={!correctAnswer || lives === 0}
           >
             Submit answer
