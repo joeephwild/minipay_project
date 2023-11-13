@@ -11,7 +11,7 @@ function Store() {
         <Navbar />
         <div className="w-full min-h-screen flex flex-col">
           <h1 className="text-black text-xl ml-6 pt-4 pb-4">Lacent Store</h1>
-          <div className="flex-1 m-6 overflow-y-auto">
+          <div className="flex flex-wrap gap-6 m-6 overflow-y-auto">
             <StoreCard />
           </div>
         </div>

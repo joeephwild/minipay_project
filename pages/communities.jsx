@@ -33,18 +33,18 @@ const Communities = () => {
                 <div
                   key={community.id}
                   onClick={() => handleCommunityClick(community)}
-                  className={`cursor-pointer ${
-                    selectedCommunity?.name === community.name
-                      ? "border-Accent border-2 rounded-full"
-                      : "hover:bg-gray-100"
-                  } p- mb-2 rounded-md w-[90px] h-[90px]`}
+
                 >
                   <Image
                     src={community.image}
                     alt={community.name}
                     width={400}
                     height={400}
-                    className="w-[90px] h-[90px] rounded-full object-cover"
+                    className={`cursor-pointer ${
+                      selectedCommunity?.name === community.name
+                        ? "border-Accent border-2 rounded-full"
+                        : "hover:bg-gray-100"
+                    } p- mb-2 rounded-full object-cover w-[90px] h-[90px]`}
                   />
                 </div>
               ))}

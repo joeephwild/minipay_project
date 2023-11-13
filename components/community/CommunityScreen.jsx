@@ -11,7 +11,7 @@ const CommunityScreen = ({ selectedCommunity }) => {
         <AiOutlineArrowLeft size={24} />
         <span className="text-[26px] font-bold">Community</span>
       </div>
-      <div className="mb-[200px]">
+      <div className="mb-[105px]">
         <Image
           src={selectedCommunity?.image}
           alt={selectedCommunity.name}
@@ -19,8 +19,8 @@ const CommunityScreen = ({ selectedCommunity }) => {
           height={400}
           className="w-full h-[190px] object-cover"
         />
-        <div className="flex flex-col items-start">
-          <span className="text-[16px] font-semibold">
+        <div className="flex flex-col items-start mt-5">
+          <span className="text-[26px] font-bold leading-[26px]">
             {selectedCommunity?.name}
           </span>
           <span>{selectedCommunity.num_people}</span>

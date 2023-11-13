@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 const Podcast = () => {
   const route = useRouter();
   const [allPodcast, setAllPodcast] = useState([1, 2, 3, 4, 5, 6]);
+  
   return (
     <DefaultLayout>
       <Navbar />
@@ -28,7 +29,7 @@ const Podcast = () => {
             Upload Podcast
           </button>
         </div>
-        <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-[33px] gap-y-11 mb-[30p] mt-[20px] sm:mt-[62px]">
+        <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-[33px] gap-y-11 mb-[60px] mt-[20px] sm:mt-[62px]">
           {allPodcast.map((item, i) => (
             <PodcastCard
               key={i}

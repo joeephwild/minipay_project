@@ -85,7 +85,7 @@ export default function Navbar() {
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden fixed top-0 left-0 right-0 bg-Black h-[600px]  p-4">
+        <div className="md:hidden fixed top-0 left-0 right-0 bg-Black z-[9999] h-[600px]  p-4">
           <div className="flex items-center justify-between w-full">
             <span>Home</span>
             <AiOutlineClose size={28} onClick={() => setIsMenuOpen(false)} />

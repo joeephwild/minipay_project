@@ -5,7 +5,7 @@ import Avatar from "react-avatar";
 import { PhoneIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { BiPhoneCall } from "react-icons/bi";
-import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai";
 
 const MentorProfile = () => {
   return (
@@ -18,7 +18,7 @@ const MentorProfile = () => {
             alt="Profile Image"
             width={800}
             height={1800}
-            className="mx-auto absolute top-[60px] left-6 my-4 h-[220px] w-[220px] rounded-full border-4 border-white"
+            className="mx-auto absolute top-[165px] md:top-[60px] left-6 my-4 w-[80px] h-[80px] md:h-[220px] md:w-[220px] rounded-full border-4 border-white"
           />
 
           <Image
@@ -37,7 +37,7 @@ const MentorProfile = () => {
             <AiOutlineMail size={24} color="black" />
           </button>
           <button className="border-4 p-2 border-black rounded-full">
-            <BiPhoneCall size={24} color="black" />
+            <AiOutlineInstagram size={24} color="black" />
           </button>
         </div>
         <div className="px-4 mt-4">

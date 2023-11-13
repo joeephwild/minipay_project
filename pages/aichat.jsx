@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Navbar from "../components/Navbar";
 import { ChatCompoents, InputBox } from "../components/AiChat";
@@ -11,16 +11,13 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useFlow } from "../context/FlowContext";
-import { useAccount } from "@particle-network/connect-react-ui";
-
+import { useAccount } from "wagmi";
 
 const AiChat = () => {
   const [chatHistories, setChatHistories] = useState([]);
-  console.log(chatHistories)
-  const [selectedCommunity, setSelectedCommunity] = useState(null);
+  console.log(chatHistories);
   const [text, setText] = useState("");
-  const { currentUser } = useFlow();
-  const account = useAccount()
+  const { address: account } = useAccount();
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -46,22 +43,33 @@ const AiChat = () => {
     fetchChat();
   }, [account]);
 
+  const containerRef = useRef(null); // Create a ref for the container
+
+  useEffect(() => {
+    // Scroll to the bottom of the container whenever chatHistories change
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [chatHistories]);
+
   return (
     <DefaultLayout>
       <Navbar />
-      <div className="flex items-start">
-        <div className="md:w-[80%] w-full overflow-y-scroll scrollbar-hide text-Black md:m-[10px]">
+      <div className="fle">
+        <div className="md:w-full w-full overflow-y-scroll scrollbar-hide text-Black md:m-[10px]">
           <span className="text-[28px] my-[31px] mx-[37px] text-Black">
             Learn with AI
           </span>
-          <div className="flex-1 min-h-screen w-full mt-[20px] scrollbar m-9">
+          <div
+            ref={containerRef}
+            className="flex-1 min-h-screen bg-Black w-[80%] mt-[20px]  m-9"
+          >
             {chatHistories.map((item, i) => (
               <ChatCompoents key={i} {...item} />
             ))}
+            <InputBox text={text} setText={setText} />
           </div>
-          <InputBox text={text} setText={setText} />
         </div>
-        <div className="md:w-[20%] hidden bg-black h-screen"></div>
       </div>
     </DefaultLayout>
   );

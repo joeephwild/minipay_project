@@ -3,7 +3,7 @@ import { logo } from "../../assets/images";
 import Image from "next/image";
 import Avatar from "react-avatar";
 
-const ChatCompoents = ({ role, message }) => {
+const ChatComponents = ({ role, message }) => {
   const isAI = role === "ai";
 
   const containerStyles = isAI
@@ -38,4 +38,4 @@ const ChatCompoents = ({ role, message }) => {
   );
 };
 
-export default ChatCompoents;
+export default ChatComponents;
