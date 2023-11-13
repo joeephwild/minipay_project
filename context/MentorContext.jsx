@@ -1,10 +1,16 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/typedefs";
-import { MentorAbi, MentorAddress, claimNFTS, createPodcast, getToken } from "../constants/contract";
+import {
+  MentorAbi,
+  MentorAddress,
+  claimNFTS,
+  createPodcast,
+  getToken,
+} from "../constants/contract";
 import { useFlow } from "./FlowContext";
 import { ethers } from "ethers";
-import { useAccount, useParticleProvider } from "@particle-network/connect-react-ui";
+import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
 
 const MentorContext = createContext();
@@ -12,37 +18,33 @@ const MentorContext = createContext();
 // Custom hook to use the Flow context
 export const useMentor = () => useContext(MentorContext);
 
-export const MentorProvider = ({
-  children,
-}) => {
-  const [alllMentors, setAllMentors] = useState([])
-  const [charges, setCharges] = useState(0)
-  const [userProfile, setUserProfile] = useState({})
-  const [modalOpen, setModalOpen] = useState(false)
-  const particleProvider = useParticleProvider();
-   const account = useAccount()
-   const route = useRouter()
-  const mentorAddress = MentorAddress
-  const mentorABI = MentorAbi
+export const MentorProvider = ({ children }) => {
+  const [alllMentors, setAllMentors] = useState([]);
+  const [charges, setCharges] = useState(0);
+  const [userProfile, setUserProfile] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const { address: account } = useAccount();
+  const mentorAddress = MentorAddress;
+  const mentorABI = MentorAbi;
 
-  const conectwithContract = async() => {
+  const conectwithContract = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(particleProvider, "any");
-      const signer = provider.getSigner()
-      const contract =  new ethers.Contract(mentorAddress, mentorABI, signer);
-      return contract
+      const provider = new ethers.providers.Web3Provider(window?.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(mentorAddress, mentorABI, signer);
+      return contract;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  const beAMentor = async(
+  const beAMentor = async (
     _languageToTeach,
     _chargingPrice,
     _aboutYou,
-     _experience,
+    _experience,
     _contact,
-    _userName,
+    _userName
   ) => {
     try {
       const contract = await conectwithContract();
@@ -54,22 +56,21 @@ export const MentorProvider = ({
         _contact,
         _userName
       );
-      console.log(tx.hash)
-      await tx.wait()
-      setModalOpen(true)
-      return `https://explorer.testnet.aurora.dev/tx/${tx.hash}`
+      console.log(tx.hash);
+      await tx.wait();
+      setModalOpen(true);
+      return `https://explorer.testnet.aurora.dev/tx/${tx.hash}`;
     } catch (error) {
       console.log(error.message);
-    } 
-  }
-
+    }
+  };
 
   const fetchUserCharges = async () => {
     try {
       const contract = await conectwithContract();
       const mentorCharge = await contract.retriveUserCharge(account);
-      console.log(Number(mentorCharge))
-      setCharges(Number(mentorCharge))
+      console.log(Number(mentorCharge));
+      setCharges(Number(mentorCharge));
     } catch (error) {
       console.log(error.message);
     }
@@ -79,8 +80,8 @@ export const MentorProvider = ({
     try {
       const contract = await conectwithContract();
       const profiles = await contract.retreiveAllMentor();
-      console.log(profiles)
-     setAllMentors(profiles)
+      console.log(profiles);
+      setAllMentors(profiles);
     } catch (error) {
       console.log(error.message);
     }
@@ -99,18 +100,16 @@ export const MentorProvider = ({
   useEffect(() => {
     fetchUserProfile();
     fetchUserCharges();
-    fetchAllMentors()
+    fetchAllMentors();
   }, [account]);
- 
+
   const value = {
     beAMentor,
     alllMentors,
     charges,
-    modalOpen
+    modalOpen,
   };
   return (
-    <MentorContext.Provider value={value}>
-      {children}
-    </MentorContext.Provider>
+    <MentorContext.Provider value={value}>{children}</MentorContext.Provider>
   );
 };

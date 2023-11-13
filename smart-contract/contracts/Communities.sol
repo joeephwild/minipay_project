@@ -1,11 +1,12 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.20;
 
 contract Communities {
     struct Community {
         string communityName;
         string communityDescription;
+        string image;
         address[] communityMembers;
         address communityOwner;
         uint256 communityId;
@@ -18,10 +19,11 @@ contract Communities {
 
     uint256 public totalCommunities;
 
-    function createCommunity(string memory _communityName, string memory _communityDescription) external {
+    function createCommunity(string memory _communityName, string memory _communityDescription, string memory _image) external {
         Community memory newCommunity = Community({
             communityName: _communityName,
             communityDescription: _communityDescription,
+            image: _image,
             communityMembers: new address[](0),
             communityOwner: msg.sender,
             communityId: totalCommunities

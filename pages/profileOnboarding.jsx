@@ -1,11 +1,15 @@
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { XIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-import { logo } from "../assets/images";
-import { languages } from "../utils";
+import { useLacentContent } from "../context/LacentContentContext";
+import { uploadFile } from "@mintbase-js/storage";
 import { useUser } from "../context/ProfileContext";
+import { languages } from "../utils";
 
 const ProfileOnboarding = () => {
+  const route = useRouter();
+  const { createAContent } = useLacentContent();
+  const { accountName } = useUser();
   const [selectedSpeakLanguage, setSelectedSpeakLanguage] = useState("");
   const [selectedLearnLanguage, setSelectedLearnLanguage] = useState("");
   const [userName, setUserName] = useState("");
@@ -13,105 +17,154 @@ const ProfileOnboarding = () => {
   const [step, setStep] = useState(1);
   const router = useRouter();
 
-  useEffect(() => {
-    const filterForLanguageImage = () => {
-      const languageFilter = languages.filter(
-        (item) => item.name === selectedLearnLanguage
-      );
-      const imageResult = languageFilter.map((item) => item.image);
-      setImage(imageResult[0]);
-    };
-    filterForLanguageImage();
-  }, [selectedLearnLanguage]);
+  // Define state variables
+  const [preferredImage, setPreferredImage] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [number, setNumber] = useState("");
+  const [name, setName] = useState("");
+  const [contentFile, setContentFile] = useState("");
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  const { createProfile } = useUser();
+  const handleAudioUpload = async (e) => {
+    const file = e.target.files[0];
 
-  const handleLanguageSelect = async (image) => {
-    if (step === 1) {
-      setSelectedSpeakLanguage(image);
-    } else {
-      setSelectedLearnLanguage(image);
+    if (file) {
+      try {
+        const uploadResult = await uploadFile(file);
+        const audioUrl = `https://arweave.net/${uploadResult.id}`;
+        // Here you can store the `imageHash` or display a link to the IPFS image
+        console.log("IPFS Image Hash:", audioUrl);
+        setContentFile(audioUrl);
+        // You can also save the `imageHash` to your component's state or perform other actions.
+      } catch (error) {
+        console.error("Error uploading image to IPFS:", error);
+      }
     }
   };
 
   const handleSubmit = async () => {
-    await createProfile(selectedSpeakLanguage, selectedLearnLanguage, userName, image);
+    try {
+      // Pass the state variables to the createAcontent function
+      await createAContent(
+        name,
+        preferredImage,
+        description,
+        contentFile,
+        accountName,
+        number,
+        category,
+        subscriptionCharge
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
-    <div className="mx-4 md:mx-[120px] my-4 md:my-[70px] overflow-y-scroll">
-      <div className="flex items-center">
-        <Image src={logo} alt="logo" className="w-12 h-12 md:w-[58px] md:h-[58px] object-contain" />
-        <span className="text-Black text-lg md:text-[32px] font-bold">Lancent</span>
-      </div>
-
-      {step === 1 && (
-        <span className="flex items-center justify-center text-lg md:text-[28px] text-Black">
-          What language do you speak?
-        </span>
-      )}
-      {step === 2 && (
-        <span className="flex items-center justify-center text-lg md:text-[28px] text-Black">
-          What language do you want to learn?
-        </span>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-4 mt-4 md:mt-[115px] items-center justify-center gap-4 md:gap-[40px]">
-        {languages.map((item, i) => (
-          <div
-            onClick={() => handleLanguageSelect(item.name)}
-            key={i}
-            className={`${
-              (step === 1 && selectedSpeakLanguage === item.name) ||
-              (step === 2 && selectedLearnLanguage === item.name)
-                ? "bg-Accent"
-                : "bg-white"
-            }  px-2 md:px-[77px] py-2 md:py-[20px] flex flex-col items-center space-y-2 md:space-y-[36px]`}
-          >
-            <Image
-              src={item.image}
-              alt={item.name}
-              width={72}
-              height={72}
-              className="w-8 h-8 md:w-[116px] md:h-[80px] object-contain"
+    <div className="min-h-screen bg-gray-100">
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="w-full max-w-2xl p-8 border bg-white rounded shadow">
+          <div className="flex items-center justify-between mb-8">
+            <XIcon
+              onClick={() => route.back()}
+              className="text-black w-6 h-6 cursor-pointer"
             />
-            <span className="text-Black text-xs md:text-base">{item.name}</span>
+            <h2 className="text-black text-2xl font-medium">
+              Create A Profile
+            </h2>
           </div>
-        ))}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-gray-700">What Language do you want to learn ?</label>
+              <select
+                name=""
+                id=""
+                className="w-full px-4 text-Black py-2 border rounded"
+              >
+                <option value="">Select Language</option>
+                {languages.map((item, i) => (
+                  <option value="" key={i}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex space-x-4">
+              <div className="w-1/2">
+                <label className="block text-gray-700">Profile Image</label>
+                <input
+                  type="file"
+                  className="w-full text-Black px-4 py-2 border rounded"
+                  onChange={handleAudioUpload}
+                />
+              </div>
+              <div className="w-1/2">
+                <label className="block text-gray-700">Profile Username</label>
+                <input
+                  type="text"
+                  className="w-full text-Black px-4 py-2 border rounded"
+                  // onChange={handleImageUpload}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-gray-700">
+                Tell us about Yourself
+              </label>
+              <textarea
+                rows="6"
+                className="w-full text-Black px-4 py-2 border rounded"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="w-1/2">
+                <label className="block text-gray-700">Phone Contact</label>
+                <input
+                  type="text"
+                  className="w-full text-Black px-4 py-2 border rounded"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                />
+              </div>
+              <div className="w-1/2">
+                <label className="block text-gray-700">Content Category</label>
+                <select
+                  className="w-full text-Black px-4 py-2 border rounded"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="select">Select your Language</option>
+                  <option value="Music">Music</option>
+                  <option value="Podcast">Podcast</option>
+                  <option value="English">AudioBook</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                className="text-Accent"
+                checked={agreeToTerms}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+              />
+              <span className="text-Black font-bold text-sm">
+                I agree to Terms of Service and Privacy Policy
+              </span>
+            </div>
+            <button
+              onClick={handleSubmit}
+              className="bg-Accent text-Black w-full py-2 rounded"
+              disabled={!agreeToTerms}
+            >
+              Submit your application
+            </button>
+          </div>
+        </div>
       </div>
-
-      {step === 2 && (
-        <form action="" className="flex items-center justify-center w-full mt-4">
-          <label className="flex flex-col items-start space-y-2 md:space-y-8">
-            <span className="text-Black text-xs md:text-[16px] font-normal">UserName</span>
-            <input
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              type="text"
-              className="bg-Grey/50 text-Black outline-none focus:outline-none border-Grey border w-full h-[45px]"
-            />
-          </label>
-        </form>
-      )}
-
-      <div className="flex items-center justify-center w-full mt-4">
-        {step === 1 && (
-          <button
-            className="bg-Accent px-4 py-2 md:px-[145px] md:py-[15px] text-Black"
-            onClick={() => setStep(2)}
-          >
-            Next
-          </button>
-        )}
-        {step === 2 && (
-          <button
-            className="bg-Accent px-4 py-2 md:px-[145px] md:py-[15px] text-Black"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        )}
-      </div>
+      {/* <ConnectModal detail="Nice uploading an awesome content for users to learn, time to make some rewrads." title="Podcast Uploaded Sucessfully" /> */}
     </div>
   );
 };

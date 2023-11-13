@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import { languageCommunity } from "../utils";
-import CommunityScreen from '../components/community/CommunityScreen'
+import CommunityScreen from '../components/community/CommunityScreen';
 
 const Communities = () => {
   const [communities, setCommunities] = useState(languageCommunity);
-  const [selectedCommunity, setSelectedCommunity] = useState(null);
+  const [selectedCommunity, setSelectedCommunity] = useState(languageCommunity[0]);
   const [showSidebar, setShowSidebar] = useState(true);
 
   const handleCommunityClick = (community) => {
@@ -22,14 +22,14 @@ const Communities = () => {
     <div>
       <DefaultLayout>
         <Navbar />
-        <section className="flex items-start text-black w-full min-h-screen overflow-y-scroll">
+        <section className="flex items-start text-black w-full min-h-screen ">
           {showSidebar && (
             <div
               className={`${
                 showSidebar ? "md:w-[10%] w-[50%]" : "w-0"
-              } bg-Black/25 h-screen p-4 border-r flex flex-col items-center transition-all duration-300 ease-in-out`}
+              } bg-Black min-h-screen p-4 border-l border-Grey flex flex-col items-center transition-all duration-300 ease-in-out`}
             >
-              {communities.slice(0,4).map((community) => (
+              {communities.slice(0, 4).map((community) => (
                 <div
                   key={community.id}
                   onClick={() => handleCommunityClick(community)}
@@ -42,8 +42,8 @@ const Communities = () => {
                   <Image
                     src={community.image}
                     alt={community.name}
-                    width={40}
-                    height={40}
+                    width={400}
+                    height={400}
                     className="w-[90px] h-[90px] rounded-full object-cover"
                   />
                 </div>
@@ -53,9 +53,9 @@ const Communities = () => {
 
           <div className="flex-1 p-4">
             {selectedCommunity ? (
-              <>
-               <CommunityScreen selectedCommunity={selectedCommunity} />
-              </>
+              <div className="overflow-y-scroll h-screen flex-1">
+                <CommunityScreen selectedCommunity={selectedCommunity} />
+              </div>
             ) : (
               <p className="">Select a community to view its posts</p>
             )}
@@ -64,7 +64,7 @@ const Communities = () => {
 
         {/* Mobile view toggle button */}
         <button
-          className="fixed bottom-4 right-4 p-2 bg-blue-500 md:hidden text-white rounded-full"
+          className="fixed bottom-4 right-4 p-2 bg-blue-500  text-white rounded-full"
           onClick={toggleSidebar}
         >
           {showSidebar ? "Hide Sidebar" : "Show Sidebar"}

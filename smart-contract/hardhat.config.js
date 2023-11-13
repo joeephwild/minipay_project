@@ -1,34 +1,21 @@
 require("@nomicfoundation/hardhat-toolbox");
-require('dotenv').config();
+require("dotenv").config();
 
 const AURORA_PRIVATE_KEY = process.env.AURORA_PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19",
+  solidity: "0.8.20",
   networks: {
-    hardhat: {
-      chainId: 1337
+    celo: {
+      url: "https://forno.celo.org",
+      accounts: [`${AURORA_PRIVATE_KEY}`],
+      // chainId: 42220,
     },
-    alphajores: {
-      url: 'https://testnet.aurora.dev',
-      accounts: [`0x${AURORA_PRIVATE_KEY}`],
-      // chainId: 1313161555,
-      // gasPrice: 120 * 1000000000
+    alfajores: {
+      url: "https://alfajores-forno.celo-testnet.org",
+      accounts: [`${AURORA_PRIVATE_KEY}`],
+      // chainId: 44787,
     },
-    local_aurora: {
-      url: 'http://localhost:8545',
-      accounts: [`0x${AURORA_PRIVATE_KEY}`],
-      chainId: 1313161555,
-      gasPrice: 120 * 1000000000
-    },
-    // ropsten: {
-    //   url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
-    //   accounts: [`0x${AURORA_PRIVATE_KEY}`],
-    //   chainId: 3,
-    //   live: true,
-    //   gasPrice: 50000000000,
-    //   gasMultiplier: 2,
-    // },
-  }
+  },
 };

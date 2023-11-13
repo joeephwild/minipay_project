@@ -135,8 +135,8 @@ const Quiz = () => {
             {question.options?.map((item, i) => (
               <button
                 key={i}
-                disabled={failed === "true" && gameOver === "true"}
-                className={`text-Black text-[12px] md:text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
+                disabled={lives < 0}
+                className={`text-Black text-[24px] font-medium w-[40%] flex item-center justify-center border-2 py-[20px]   ${
                   selectedAnswer === item.toLowerCase() && correctAnswer
                     ? "border-green-500 text-green-500"
                     : ""

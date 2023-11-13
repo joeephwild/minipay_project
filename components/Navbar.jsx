@@ -49,12 +49,12 @@ export default function Navbar() {
           </Link>
           {address && (
             <div className="hidden md:flex space-x-4">
-              <Link href="/become-mentor">
+              <Link href="/beAMentor">
                 <button className="text-Black bg-Accent px-6 py-2.5 rounded-lg">
                   Become a Mentor
                 </button>
               </Link>
-              <Link href="/select-language">
+              <Link href="/profileOnboarding">
                 <button className="text-Black bg-Accent px-6 py-2.5 rounded-lg">
                   Select Language
                 </button>
@@ -63,14 +63,19 @@ export default function Navbar() {
           )}
         </div>
         <div className="md:flex items-center hidden space-x-4">
-          {!address && (
-          <ConnectButton  />
-          )}
+          {!address && <ConnectButton />}
           {address && (
             <button
               onClick={disconnect}
-              className="text-Black bg-Accent px-6 py-2.5 rounded-lg"
+              className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg"
             >
+              <Image
+                src="https://images.pexels.com/photos/18311326/pexels-photo-18311326/free-photo-of-a-woman-with-red-hair-and-green-jacket.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                alt="profile"
+                width={400}
+                height={400}
+                className="w-[28px] h-[28px] object-contain rounded-full"
+              />
               {address.slice(0, 9)}...{address.slice(36, 40)}
             </button>
           )}
