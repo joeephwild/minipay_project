@@ -2,67 +2,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_contentName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_contentImage",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_contentDescription",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_contentLink",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_contentOwnerName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_shortTag",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_category",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "createContent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "purchaseContent",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
@@ -107,11 +46,6 @@
 			},
 			{
 				"internalType": "string",
-				"name": "shortTag",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
 				"name": "category",
 				"type": "string"
 			},
@@ -127,6 +61,49 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_contentName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contentImage",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contentDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contentLink",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_contentOwnerName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_category",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "createContent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -171,11 +148,6 @@
 			},
 			{
 				"internalType": "string",
-				"name": "shortTag",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
 				"name": "category",
 				"type": "string"
 			},
@@ -191,6 +163,19 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "purchaseContent",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -227,11 +212,6 @@
 					{
 						"internalType": "string",
 						"name": "contentOwnerName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "shortTag",
 						"type": "string"
 					},
 					{

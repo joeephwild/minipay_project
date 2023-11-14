@@ -49,12 +49,10 @@ const ProfileOnboarding = () => {
       await createAContent(
         name,
         preferredImage,
-        description,
         contentFile,
         accountName,
         number,
         category,
-        subscriptionCharge
       );
     } catch (error) {
       console.log(error.message);
@@ -107,17 +105,6 @@ const ProfileOnboarding = () => {
                   // onChange={handleImageUpload}
                 />
               </div>
-            </div>
-            <div>
-              <label className="block text-gray-700">
-                Tell us about Yourself
-              </label>
-              <textarea
-                rows="6"
-                className="w-full text-Black px-4 py-2 border rounded"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-1/2">

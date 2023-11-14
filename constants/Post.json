@@ -1,0 +1,185 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "contributeContent",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_contentImage",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_contentPost",
+        "type": "string"
+      }
+    ],
+    "name": "createPost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "allContent",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "contentImage",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contentPost",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "contentOwner",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "contentId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retreiveAllContent",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "contentImage",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "contentPost",
+            "type": "string"
+          },
+          {
+            "internalType": "address[]",
+            "name": "contentContributors",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address",
+            "name": "contentOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "contentId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Post.ContentPost[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "retreiveContent",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "contentImage",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "contentPost",
+            "type": "string"
+          },
+          {
+            "internalType": "address[]",
+            "name": "contentContributors",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address",
+            "name": "contentOwner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "contentId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Post.ContentPost",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contentId",
+        "type": "uint256"
+      }
+    ],
+    "name": "retreiveContributors",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalContent",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
