@@ -72,6 +72,13 @@ const Hero = () => {
           alt="main"
           className="w-[172px] h-[266px] md:h-[447px] lg:w-[400px] lg:h-[750px] object-fill absolute top-[0px] right-0"
         />
+        <div className="flex flex-row w-full items-right justify-end text-Black text-right mt-6">
+          <span className="text-[14px]  font-semibold">
+            Powered by{" "}
+            <span className="text-red-600 text-[20px] font-bold">Minipay</span>&{" "}
+            <span className="text-Black text-[20px] font-bold">Celo</span>
+          </span>
+        </div>
       </div>
     </div>
   );
