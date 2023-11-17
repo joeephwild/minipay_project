@@ -9,11 +9,10 @@ import { useCommunity } from "../../context/CommunityContext";
 import { uploadFile } from "@mintbase-js/storage";
 
 const CommunityScreen = ({ selectedCommunity }) => {
-  
   const [isPartOfCommunity, setIsPartOfCommunity] = useState(false);
   const { address } = useAccount();
   const { allCommunityPost, retriveUserCommunity } = useCommunity();
-  console.log(Number(allCommunityPost?.contentCommunityID))
+  console.log(Number(allCommunityPost?.contentCommunityID));
   useEffect(() => {
     const retrive = async () => {
       retriveUserCommunity(Number(allCommunityPost?.contentCommunityID));
