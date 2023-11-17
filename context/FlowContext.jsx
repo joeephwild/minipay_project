@@ -18,6 +18,7 @@ export const FlowProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isUserMember, setIsUserMember] = useState(false);
   const { address, isConnected } = useAccount();
+  const [hideConnectBtn, setHideConnectBtn] = useState(false);
   console.log(address);
 
   const { connect } = useConnect({
@@ -25,7 +26,10 @@ export const FlowProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    connect();
+    if (window.ethereum && window.ethereum.isMiniPay) {
+      setHideConnectBtn(true);
+      connect();
+    }
   }, [connect]);
 
   const conectwithContract = async () => {
@@ -120,6 +124,7 @@ export const FlowProvider = ({ children }) => {
         createCommunity,
         joinCommunity,
         setActive,
+        hideConnectBtn
       }}
     >
       {children}

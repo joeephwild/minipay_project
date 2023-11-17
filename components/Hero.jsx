@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useAccount, useConnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import { useFlow } from "../context/FlowContext";
 
 const Hero = () => {
-  const { address } = useAccount();
+  const { hideConnectBtn } = useFlow();
+  const { address, isConnected } = useAccount();
   const route = useRouter();
 
   const { connect } = useConnect({
@@ -27,7 +29,7 @@ const Hero = () => {
         </span>
         <div className="flex items-center space-x-7  md:self-start md:text-start">
           <div>
-            {!address && (
+            {!address && !hideConnectBtn && (
               <div className=" flex items-center">
                 <button
                   onClick={() => connect()}
@@ -39,14 +41,16 @@ const Hero = () => {
             )}
           </div>
 
-          {address && (
-            <button
-              onClick={() => route.push("/dashboard")}
-              className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
-            >
-              Dashboard
-            </button>
-          )}
+          {address && hideConnectBtn && (
+              <div className=" flex items-center">
+                <button
+                  onClick={() => connect()}
+                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+                >
+                  dashboard
+                </button>
+              </div>
+            )}
 
           <button className="border-2 border-Accent text-Black px-[20px] lg:text-[16px] lg:px-[26px] py-[12px] rounded-[8px] text-[12px] font-bold">
             Learn More

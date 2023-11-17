@@ -7,27 +7,17 @@ import { LacentBadgeProvider } from "../context/Badge";
 import { LacentContentProvider } from "../context/LacentContentContext";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import celoGroups from "@celo/rainbowkit-celo/lists";
 import { Alfajores, Celo, Cannoli } from "@celo/rainbowkit-celo/chains";
 import "@rainbow-me/rainbowkit/styles.css";
+import { publicProvider } from "wagmi/providers/public";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const { chains, publicClient } = configureChains(
-  [Alfajores, Celo, Cannoli],
-  [
-    jsonRpcProvider({
-      rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }),
-    }),
-  ]
+  [Alfajores, Celo],
+  [publicProvider()]
 );
 
-const projectId = "7825ba6c0326e0da37dcaafc29ed5570"; // get one at https://cloud.walletconnect.com/app
-
-const connectors = celoGroups({
-  chains,
-  projectId,
-  appName: (typeof document === "object" && document.title) || "Your App Name",
-});
+const connectors = [new InjectedConnector({ chains })];
 
 const wagmiConfig = createConfig({
   autoConnect: true,
