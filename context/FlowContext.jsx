@@ -26,7 +26,7 @@ export const FlowProvider = ({ children }) => {
 
   useEffect(() => {
     connect();
-  }, [address]);
+  }, [connect]);
 
   const conectwithContract = async () => {
     try {
