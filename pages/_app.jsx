@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { FlowProvider } from "../context/FlowContext";
 import { UserProvider } from "../context/ProfileContext";
 import { MentorProvider } from "../context/MentorContext";
+import { CommunityProvider } from "../context/CommunityContext";
 import { LacentBadgeProvider } from "../context/Badge";
 import { LacentContentProvider } from "../context/LacentContentContext";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
@@ -39,15 +40,17 @@ function MyApp({ Component, pageProps }) {
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains} coolMode={true}>
         <FlowProvider>
-          <MentorProvider>
-            <UserProvider>
-              <LacentBadgeProvider>
-                <LacentContentProvider>
-                  <Component {...pageProps} />
-                </LacentContentProvider>
-              </LacentBadgeProvider>
-            </UserProvider>
-          </MentorProvider>
+          <CommunityProvider>
+            <MentorProvider>
+              <UserProvider>
+                <LacentBadgeProvider>
+                  <LacentContentProvider>
+                    <Component {...pageProps} />
+                  </LacentContentProvider>
+                </LacentBadgeProvider>
+              </UserProvider>
+            </MentorProvider>
+          </CommunityProvider>
         </FlowProvider>
       </RainbowKitProvider>
     </WagmiConfig>

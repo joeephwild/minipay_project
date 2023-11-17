@@ -17,9 +17,6 @@ export const LacentContentProvider = ({ children }) => {
 
   const conectwithContract = async () => {
     try {
-      if (!window.ethereum) {
-        throw new Error("Theres is no window ethereum package");
-      }
       const provider = new ethers.providers.Web3Provider(window?.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contentAddress, contentABI, signer);

@@ -63,7 +63,14 @@ export default function Navbar() {
           )}
         </div>
         <div className="md:flex items-center hidden space-x-4">
-          {!address && <ConnectButton />}
+          {!address && (
+            <button
+              onClick={() => connect()}
+              className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+            >
+              Connect Wallet
+            </button>
+          )}
           {address && (
             <button
               onClick={disconnect}
@@ -134,7 +141,29 @@ export default function Navbar() {
 
           {/* Add more links as needed */}
           <div className="flex items-center absolute bottom-9">
-            <ConnectButton />
+            {!address && (
+              <button
+                onClick={() => connect()}
+                className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+              >
+                Connect Wallet
+              </button>
+            )}
+            {address && (
+              <button
+                onClick={disconnect}
+                className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg"
+              >
+                <Image
+                  src="https://images.pexels.com/photos/18311326/pexels-photo-18311326/free-photo-of-a-woman-with-red-hair-and-green-jacket.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                  alt="profile"
+                  width={400}
+                  height={400}
+                  className="w-[28px] h-[28px] object-contain rounded-full"
+                />
+                {address.slice(0, 9)}...{address.slice(36, 40)}
+              </button>
+            )}
           </div>
         </div>
       )}

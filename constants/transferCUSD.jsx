@@ -1,48 +1,58 @@
 import { utils } from "ethers";
+import { useAccount, useBalance } from "wagmi";
+import { useCallback } from "react";
 
 // Mainnet address of cUSD
 const CUSD_ADDRESS = "0x765DE816845861e75A25fCA122bb6898B8B1282a";
 
-const receiverAddress = "";
+export function useTransferCUSD() {
+  const { address } = useAccount();
 
-// DApp to quickly test transfer of cUSD to a specific address using the cUSD contract.
-export default function TransferCUSD() {
-    async function transferCUSD() {
-        if (window.ethereum) {
-            // Get connected accounts, if not connected request connnection.
-            // returns an array of accounts
-            let accounts = await window.ethereum.request({
-                method: "eth_requestAccounts",
-            });
+  const transferCUSD = useCallback(async (receiverAddress, amount) => {
+    if (window.ethereum && window.ethereum.isMiniPay) {
+      // Get user's balance
+      let balance = await window.ethereum.request({
+        method: "eth_getBalance",
+        params: [address, "latest"],
+      });
 
-            // The current selected account out of the connected accounts.
-            let userAddress = accounts[0];
+      // Convert balance to Ether
+      let balanceInEther = utils.formatEther(balance);
 
-            let iface = new utils.Interface([
-                "function transfer(address to, uint256 value)",
-            ]);
+      // Check if balance is sufficient
+      if (parseFloat(balanceInEther) < parseFloat(amount)) {
+        alert("Insufficient balance");
+        return;
+      }
 
-            let calldata = iface.encodeFunctionData("transfer", [
-                receiverAddress,
-                utils.parseEther("0.1"), // 10 cUSD - This amount is in wei
-            ]);
+      let iface = new utils.Interface([
+        "function transfer(address to, uint256 value)",
+      ]);
 
-            // Send transaction to the injected wallet to be confirmed by the user.
-            let tx = await window.ethereum.request({
-                method: "eth_sendTransaction",
-                params: [
-                    {
-                        from: userAddress,
-                        to: CUSD_ADDRESS, // We need to call the transfer function on the cUSD token contract
-                        data: calldata, // Information about which function to call and what values to pass as parameters
-                    },
-                ],
-            });
+      let calldata = iface.encodeFunctionData("transfer", [
+        receiverAddress,
+        utils.parseEther(amount), // This amount is in wei
+      ]);
 
-            // Wait until tx confirmation and get tx receipt
-            let receipt = await tx.wait();
-        }
+      // Send transaction to the injected wallet to be confirmed by the user.
+      let tx = await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            from: address,
+            to: CUSD_ADDRESS, // We need to call the transfer function on the cUSD token contract
+            data: calldata, // Information about which function to call and what values to pass as parameters
+          },
+        ],
+      });
+
+      // Wait until tx confirmation and get tx receipt
+      let receipt = await tx.wait();
+      return receipt;
+    } else {
+      throw new Error("Ethereum is not available");
     }
+  }, [address]);
 
-    return <button onClick={transferCUSD}>Transfer cUSD</button>;
+  return { transferCUSD };
 }

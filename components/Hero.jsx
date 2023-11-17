@@ -3,14 +3,16 @@ import "@particle-network/connect-react-ui/dist/index.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { useFlow } from "../context/FlowContext";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const Hero = () => {
   const { address } = useAccount();
   const route = useRouter();
-  const { currentUser } = useFlow();
+
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
   return (
     <div className="w-screen min-h-screen px-[18px] md:mr-[145px] md:ml-[85.71px] flex flex-col md:flex-row items-center overflow-y-scroll">
       <div className="flex flex-col md:w-[50%] md:mt-[89px] gap-[20px] mt-[40px] items-center justify-center">
@@ -27,7 +29,12 @@ const Hero = () => {
           <div>
             {!address && (
               <div className=" flex items-center">
-                <ConnectButton />
+                <button
+                  onClick={() => connect()}
+                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+                >
+                  Connect Wallet
+                </button>
               </div>
             )}
           </div>

@@ -6,8 +6,11 @@ import {
   AiOutlineComment,
 } from "react-icons/ai";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { useTransferCUSD } from "../constants/transferCUSD";
 
-const PostCard = () => {
+const PostCard = ({ item }) => {
+  const { transferCUSD } = useTransferCUSD();
+
   const likePost = () => {
     console.log("Liked!");
   };
@@ -20,21 +23,28 @@ const PostCard = () => {
     console.log("Commented!");
   };
 
-  const tipPost = () => {
-    console.log("Tipped!");
+  // ...
+
+  const tipPost = async (receiverAddress, amount) => {
+    try {
+      const receipt = await transferCUSD(item?.contentOwner, "0.1");
+      console.log(receipt);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div className="w-full  bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div className="w-full  bg-white rounded-xl shadow-md overflow-hidden min-h-fit md:max-w-2xl">
       <Image
-        className="w-full"
+        className="w-full h-[400px] object-contain"
         width={300}
         height={300}
-        src="https://images.pexels.com/photos/8486108/pexels-photo-8486108.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+        src={item?.contentImage}
         alt="PostCard Image"
       />
       <div className="p-4">
-        <p className="text-xl font-semibold">Post Text goes here...</p>
+        <p className="text-lg font-medium">{item?.contentPost}</p>
         <p className="text-gray-600">Post Owner: John Doe</p>
 
         <div className="flex justify-between mt-4">
