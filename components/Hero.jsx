@@ -29,7 +29,7 @@ const Hero = () => {
         </span>
         <div className="flex items-center space-x-7  md:self-start md:text-start">
           <div>
-            {!address && !hideConnectBtn && (
+            {!isConnected && !hideConnectBtn && (
               <div className=" flex items-center">
                 <button
                   onClick={() => connect()}
@@ -41,7 +41,7 @@ const Hero = () => {
             )}
           </div>
 
-          {address && hideConnectBtn && (
+          {isConnected && hideConnectBtn && (
               <div className=" flex items-center">
                 <button
                   onClick={() => connect()}
