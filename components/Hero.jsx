@@ -25,10 +25,8 @@ const Hero = () => {
   });
 
   useEffect(() => {
-    if (window.ethereum && window.ethereum.isMiniPay) {
-      setHideConnectBtn(true);
-      connect();
-    }
+    setHideConnectBtn(true);
+    connect();
   }, []);
   return (
     <div className="w-screen min-h-screen px-[18px] md:mr-[145px] md:ml-[85.71px] flex flex-col md:flex-row items-center overflow-y-scroll">
