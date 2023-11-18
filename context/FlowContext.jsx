@@ -20,7 +20,14 @@ export const FlowProvider = ({ children }) => {
   const { address, isConnected } = useAccount();
   const [hideConnectBtn, setHideConnectBtn] = useState(false);
   console.log(address);
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
 
+  useEffect(() => {
+    setHideConnectBtn(true);
+    connect();
+  }, []);
 
   const conectwithContract = async () => {
     try {
@@ -115,7 +122,7 @@ export const FlowProvider = ({ children }) => {
         joinCommunity,
         setActive,
         hideConnectBtn,
-        setHideConnectBtn
+        setHideConnectBtn,
       }}
     >
       {children}

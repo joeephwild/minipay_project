@@ -20,14 +20,7 @@ const Hero = () => {
     }
   }, []);
 
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
-
-  useEffect(() => {
-    setHideConnectBtn(true);
-    connect();
-  }, []);
+ 
   return (
     <div className="w-screen min-h-screen px-[18px] md:mr-[145px] md:ml-[85.71px] flex flex-col md:flex-row items-center overflow-y-scroll">
       <div className="flex flex-col md:w-[50%] md:mt-[89px] gap-[20px] mt-[40px] items-center justify-center">
@@ -35,7 +28,7 @@ const Hero = () => {
           E-COURSE PLATFORM
         </span>
         <h1 className="text-black text-5xl md:text-6xl lg:text-[115px] font-black text-center md:self-start md:text-start">
-          Learning and teaching online, made easy.
+          Learning and teaching online, made hard.
         </h1>
         <span className="text-[14px] text-Black font-semibold text-center  md:self-start md:text-start">
           Practice and learn new things with the platform.
