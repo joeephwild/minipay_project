@@ -30,7 +30,7 @@ export const FlowProvider = ({ children }) => {
       setHideConnectBtn(true);
       connect();
     }
-  }, [connect]);
+  }, []);
 
   const conectwithContract = async () => {
     try {

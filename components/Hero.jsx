@@ -6,6 +6,7 @@ import React from "react";
 import { useAccount, useConnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { useFlow } from "../context/FlowContext";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Hero = () => {
   const { hideConnectBtn } = useFlow();
@@ -29,28 +30,25 @@ const Hero = () => {
         </span>
         <div className="flex items-center space-x-7  md:self-start md:text-start">
           <div>
-            {!isConnected && !hideConnectBtn && (
+            {hideConnectBtn && <></>}
+
+            {!hideConnectBtn && (
               <div className=" flex items-center">
-                <button
-                  onClick={() => connect()}
-                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
-                >
-                  Connect Wallet
-                </button>
+                <ConnectButton />
               </div>
             )}
           </div>
 
-          {isConnected && hideConnectBtn && (
-              <div className=" flex items-center">
-                <button
-                  onClick={() => connect()}
-                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
-                >
-                  dashboard
-                </button>
-              </div>
-            )}
+          {!isConnected && (
+            <div className=" flex items-center">
+              <button
+                onClick={() => connect()}
+                className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+              >
+                dashboard
+              </button>
+            </div>
+          )}
 
           <button className="border-2 border-Accent text-Black px-[20px] lg:text-[16px] lg:px-[26px] py-[12px] rounded-[8px] text-[12px] font-bold">
             Learn More
