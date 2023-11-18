@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useConnect, useAccount, configureChains, } from "wagmi";
+import { useConnect, useAccount, configureChains } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { ethers } from "ethers";
 import { communityAbi, communityAddress } from "../constants/contract";
@@ -21,30 +21,78 @@ export const FlowProvider = ({ children }) => {
   const [isUserMember, setIsUserMember] = useState(false);
   const { address, isConnected } = useAccount();
   const [hideConnectBtn, setHideConnectBtn] = useState(false);
-  console.log(address);
-  const { chains, publicClient } = configureChains(
-    [Alfajores, Celo],
-    [publicProvider()]
-  );
-  const { connect } = useConnect({
-    connector: new InjectedConnector({}),
-  });
+  // console.log(address);
+  // const { chains, publicClient } = configureChains(
+  //   [Alfajores, Celo],
+  //   [publicProvider()]
+  // );
+  // const { connect } = useConnect({
+  //   connector: new InjectedConnector({}),
+  // });
+
+  // useEffect(() => {
+  //   setHideConnectBtn(true);
+  //   connect();
+  // }, []);
+
+  const [walletAddress, setWalletAddress] = useState(null);
 
   useEffect(() => {
-    setHideConnectBtn(true);
-    connect();
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_accounts" }).then((accounts) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setHideConnectBtn(true)
+        }
+      });
+    }
   }, []);
+
+  const walletListener = () => {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setHideConnectBtn(true);
+        } else {
+          setWalletAddress(null);
+          setHideConnectBtn(false);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    walletListener();
+  }, [walletAddress]);
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setWalletAddress(accounts[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   const conectwithContract = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window?.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        communityAddress,
-        communityAbi,
-        signer
-      );
-      return contract;
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window?.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          communityAddress,
+          communityAbi,
+          signer
+        );
+        return contract;
+      } else {
+        alert("no ethereum provider");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -129,6 +177,9 @@ export const FlowProvider = ({ children }) => {
         setActive,
         hideConnectBtn,
         setHideConnectBtn,
+        walletAddress,
+        connectWallet,
+        setWalletAddress
       }}
     >
       {children}

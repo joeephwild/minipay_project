@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Avatar from "react-avatar";
 import { BiMenu } from "react-icons/bi";
@@ -16,14 +16,17 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const { setActive, active, currentUser } = useFlow();
+  const {
+    setActive,
+    active,
+    walletAddress,
+    hideConnectBtn,
+    setHideConnectBtn,
+    setWalletAddress,
+    connectWallet,
+  } = useFlow();
   const route = useRouter();
   const { address } = useAccount();
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
-
-  const { disconnect } = useDisconnect();
 
   const handleRoute = (item, routePath) => {
     setActive(item);
@@ -35,10 +38,16 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const connectWallet = () => {
-    // Implement wallet connection logic here
-    setIsWalletConnected(true);
-  };
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_accounts" }).then((accounts) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setHideConnectBtn(true);
+        }
+      });
+    }
+  }, []);
 
   return (
     <nav className="bg-Black shadow-xl p-4">
@@ -63,19 +72,16 @@ export default function Navbar() {
           )}
         </div>
         <div className="md:flex items-center hidden space-x-4">
-          {!address && (
+          {!hideConnectBtn && (
             <button
-              onClick={() => connect()}
+              onClick={connectWallet}
               className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
             >
               Connect Wallet
             </button>
           )}
-          {address && (
-            <button
-              onClick={disconnect}
-              className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg"
-            >
+          {hideConnectBtn && (
+            <button className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg">
               <Image
                 src="https://images.pexels.com/photos/18311326/pexels-photo-18311326/free-photo-of-a-woman-with-red-hair-and-green-jacket.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
                 alt="profile"
@@ -83,7 +89,7 @@ export default function Navbar() {
                 height={400}
                 className="w-[28px] h-[28px] object-contain rounded-full"
               />
-              {address.slice(0, 9)}...{address.slice(36, 40)}
+              {walletAddress.slice(0, 9)}...{walletAddress.slice(36, 40)}
             </button>
           )}
         </div>
