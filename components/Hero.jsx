@@ -45,7 +45,7 @@ const Hero = () => {
                 onClick={() => connect()}
                 className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
               >
-                dashboard
+                {address}
               </button>
             </div>
           )}
