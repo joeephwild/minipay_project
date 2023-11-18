@@ -20,15 +20,18 @@ const { chains, publicClient } = configureChains(
 const connectors = [new InjectedConnector({ chains })];
 
 const wagmiConfig = createConfig({
-  autoConnect: true,
   connectors,
   publicClient: publicClient,
 });
 
+const appInfo = {
+  appName: "Celo Composer",
+};
+
 function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} coolMode={true}>
+      <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
         <FlowProvider>
           <CommunityProvider>
             <MentorProvider>

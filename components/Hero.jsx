@@ -28,7 +28,7 @@ const Hero = () => {
           E-COURSE PLATFORM
         </span>
         <h1 className="text-black text-5xl md:text-6xl lg:text-[115px] font-black text-center md:self-start md:text-start">
-          Learning and teaching online, made hard.
+          Learning and teaching online, made easy.
         </h1>
         <span className="text-[14px] text-Black font-semibold text-center  md:self-start md:text-start">
           Practice and learn new things with the platform.

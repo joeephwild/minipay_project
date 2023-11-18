@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useConnect, useAccount } from "wagmi";
+import { useConnect, useAccount, configureChains, } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { ethers } from "ethers";
 import { communityAbi, communityAddress } from "../constants/contract";
+import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
+import { publicProvider } from "wagmi/providers/public";
 
 // Create the context with default values
 const FlowContext = createContext(undefined);
@@ -20,8 +22,12 @@ export const FlowProvider = ({ children }) => {
   const { address, isConnected } = useAccount();
   const [hideConnectBtn, setHideConnectBtn] = useState(false);
   console.log(address);
+  const { chains, publicClient } = configureChains(
+    [Alfajores, Celo],
+    [publicProvider()]
+  );
   const { connect } = useConnect({
-    connector: new InjectedConnector(),
+    connector: new InjectedConnector({}),
   });
 
   useEffect(() => {
