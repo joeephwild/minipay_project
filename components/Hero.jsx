@@ -9,18 +9,25 @@ import { useFlow } from "../context/FlowContext";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Hero = () => {
-  const { hideConnectBtn } = useFlow();
+  const { hideConnectBtn, setHideConnectBtn } = useFlow();
   const { address, isConnected } = useAccount();
   const [userAddress, setUserAddress] = useState("");
   const route = useRouter();
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address);
+    }
+  }, []);
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
 
   useEffect(() => {
-    if (isConnected && address) {
-      setUserAddress(address);
+    if (window.ethereum && window.ethereum.isMiniPay) {
+      setHideConnectBtn(true);
+      connect();
     }
   }, []);
   return (

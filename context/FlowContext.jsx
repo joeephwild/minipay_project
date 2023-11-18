@@ -21,16 +21,7 @@ export const FlowProvider = ({ children }) => {
   const [hideConnectBtn, setHideConnectBtn] = useState(false);
   console.log(address);
 
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
 
-  useEffect(() => {
-    if (window.ethereum && window.ethereum.isMiniPay) {
-      setHideConnectBtn(true);
-      connect();
-    }
-  }, []);
 
   const conectwithContract = async () => {
     try {
