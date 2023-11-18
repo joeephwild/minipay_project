@@ -22,7 +22,6 @@ export const FlowProvider = ({ children }) => {
   console.log(address);
 
 
-
   const conectwithContract = async () => {
     try {
       const provider = new ethers.providers.Web3Provider(window?.ethereum);
@@ -115,7 +114,8 @@ export const FlowProvider = ({ children }) => {
         createCommunity,
         joinCommunity,
         setActive,
-        hideConnectBtn
+        hideConnectBtn,
+        setHideConnectBtn
       }}
     >
       {children}
