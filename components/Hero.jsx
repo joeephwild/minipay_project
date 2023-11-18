@@ -2,7 +2,7 @@ import { boy, plant } from "../assets/images";
 import "@particle-network/connect-react-ui/dist/index.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAccount, useConnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { useFlow } from "../context/FlowContext";
@@ -11,11 +11,18 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 const Hero = () => {
   const { hideConnectBtn } = useFlow();
   const { address, isConnected } = useAccount();
+  const [userAddress, setUserAddress] = useState("");
   const route = useRouter();
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address);
+    }
+  }, []);
   return (
     <div className="w-screen min-h-screen px-[18px] md:mr-[145px] md:ml-[85.71px] flex flex-col md:flex-row items-center overflow-y-scroll">
       <div className="flex flex-col md:w-[50%] md:mt-[89px] gap-[20px] mt-[40px] items-center justify-center">
@@ -30,25 +37,39 @@ const Hero = () => {
         </span>
         <div className="flex items-center space-x-7  md:self-start md:text-start">
           <div>
-            {hideConnectBtn && <></>}
+            {hideConnectBtn && (
+              <div className=" flex items-center">
+                <button
+                  onClick={() => route.push("/dashboard")}
+                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+                >
+                  Dashboard
+                </button>
+              </div>
+            )}
 
             {!hideConnectBtn && (
               <div className=" flex items-center">
-                <ConnectButton />
+                <button
+                  onClick={() => connect()}
+                  className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
+                >
+                  Connect Wallet
+                </button>
               </div>
             )}
           </div>
-
+          {/* 
           {!isConnected && (
             <div className=" flex items-center">
               <button
                 onClick={() => connect()}
                 className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
               >
-                {address}
+                {userAddress}
               </button>
             </div>
-          )}
+          )} */}
 
           <button className="border-2 border-Accent text-Black px-[20px] lg:text-[16px] lg:px-[26px] py-[12px] rounded-[8px] text-[12px] font-bold">
             Learn More
