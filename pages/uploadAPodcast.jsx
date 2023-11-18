@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { XIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useLacentContent } from "../context/LacentContentContext";
-import ipfsClient from "ipfs-http-client"; 
-import { uploadFile } from '@mintbase-js/storage';
+import ipfsClient from "ipfs-http-client";
+import { uploadFile } from "@mintbase-js/storage";
 import ConnectModal from "../components/ConnectModal";
 import { useUser } from "../context/ProfileContext";
 
 const BeAMentor = () => {
   const route = useRouter();
-  const { createAContent }  = useLacentContent()
-  const { accountName } = useUser()
+  const { createAContent } = useLacentContent();
+  const { accountName } = useUser();
 
   // Define state variables
   const [preferredImage, setPreferredImage] = useState("");
@@ -18,7 +18,7 @@ const BeAMentor = () => {
   const [description, setDescription] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [name, setName] = useState("");
-  const [contentFile, setContentFile]  = useState("");
+  const [contentFile, setContentFile] = useState("");
   const [subscriptionCharge, setSubscriptionCharge] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
@@ -32,7 +32,7 @@ const BeAMentor = () => {
         const imageUrl = `https://arweave.net/${uploadResult.id}`;
         // Here you can store the `imageHash` or display a link to the IPFS image
         console.log("IPFS Image Hash:", imageUrl);
-        setPreferredImage(imageUrl)
+        setPreferredImage(imageUrl);
         // You can also save the `imageHash` to your component's state or perform other actions.
       } catch (error) {
         console.error("Error uploading image to IPFS:", error);
@@ -49,8 +49,11 @@ const BeAMentor = () => {
         const audioUrl = `https://arweave.net/${uploadResult.id}`;
         // Here you can store the `imageHash` or display a link to the IPFS image
         console.log("IPFS Image Hash:", audioUrl);
-        setContentFile(audioUrl)
+        setContentFile(audioUrl);
         // You can also save the `imageHash` to your component's state or perform other actions.
+        if (audioUrl) {
+          alert("Upload Sucessfull");
+        }
       } catch (error) {
         console.error("Error uploading image to IPFS:", error);
       }
@@ -58,7 +61,6 @@ const BeAMentor = () => {
   };
 
   const handleSubmit = async () => {
-
     try {
       // Pass the state variables to the createAcontent function
       await createAContent(
@@ -67,7 +69,6 @@ const BeAMentor = () => {
         description,
         contentFile,
         accountName,
-        shortDesc,
         category,
         subscriptionCharge
       );
@@ -86,11 +87,11 @@ const BeAMentor = () => {
               className="text-black w-6 h-6 cursor-pointer"
             />
             <h2 className="text-black text-2xl font-medium">
-             Upload A Podcast
+              Upload A Podcast
             </h2>
           </div>
           <div className="space-y-4">
-          <div>
+            <div>
               <label className="block text-gray-700">Content Name</label>
               <input
                 type="text"
@@ -104,10 +105,8 @@ const BeAMentor = () => {
                 <label className="block text-gray-700">Content File</label>
                 <input
                   type="file"
-                
                   className="w-full text-Black px-4 py-2 border rounded"
                   onChange={handleAudioUpload}
-               
                 />
               </div>
               <div className="w-1/2">
@@ -115,13 +114,14 @@ const BeAMentor = () => {
                 <input
                   type="file"
                   className="w-full text-Black px-4 py-2 border rounded"
-                   onChange={handleImageUpload}
-               
+                  onChange={handleImageUpload}
                 />
               </div>
             </div>
             <div>
-              <label className="block text-gray-700">Tell us about this content</label>
+              <label className="block text-gray-700">
+                Tell us about this content
+              </label>
               <textarea
                 rows="6"
                 className="w-full text-Black px-4 py-2 border rounded"
@@ -129,34 +129,25 @@ const BeAMentor = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="w-1/2">
-                <label className="block text-gray-700">
-                  Give a more Short Info
-                </label>
-                <input
-                  type="text"
-                  className="w-full text-Black px-4 py-2 border rounded"
-                  value={shortDesc}
-                  onChange={(e) => setShortDesc(e.target.value)}
-                />
-              </div>
-              <div className="w-1/2">
-                <label className="block text-gray-700">Content Category</label>
-                <select
-                  className="w-full text-Black px-4 py-2 border rounded"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="select">Select your Language</option>
-                  <option value="Music">Music</option>
-                  <option value="Podcast">Podcast</option>
-                  <option value="English">AudioBook</option>
-                </select>
-              </div>
+
+            <div className="">
+              <label className="block text-gray-700">Content Category</label>
+              <select
+                className="w-full text-Black px-4 py-2 border rounded"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="select">Select your Language</option>
+                <option value="Music">Music</option>
+                <option value="Podcast">Podcast</option>
+                <option value="English">AudioBook</option>
+              </select>
             </div>
+
             <div>
-              <label className="block text-gray-700">Your subscription charge</label>
+              <label className="block text-gray-700">
+                Your subscription charge
+              </label>
               <input
                 type="number"
                 className="w-full px-4 text-Black py-2 border rounded"
@@ -171,10 +162,12 @@ const BeAMentor = () => {
                 checked={agreeToTerms}
                 onChange={(e) => setAgreeToTerms(e.target.checked)}
               />
-              <span className="text-Black font-bold text-sm">I agree to Terms of Service and Privacy Policy</span>
+              <span className="text-Black font-bold text-sm">
+                I agree to Terms of Service and Privacy Policy
+              </span>
             </div>
             <button
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               className="bg-Accent text-Black w-full py-2 rounded"
               disabled={!agreeToTerms}
             >

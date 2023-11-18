@@ -25,7 +25,6 @@ const InputBox = ({ setText, text }) => {
         created_at: serverTimestamp(), // Use serverTimestamp() to set the timestamp
       });
       const response = await fetchAIResponse(text, accountName);
-      console.log(response)
       await addDoc(collection(db, "chatrooms"), {
         role: "ai",
         message: response,

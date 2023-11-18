@@ -150,7 +150,6 @@ export const FlowProvider = ({ children }) => {
       const contract = await conectwithContract();
       // Call the retreiveCommunity function
       const communities = await contract.retreiveAllCommunities();
-      console.log(communities);
       // Return the result
       setAllCommunity(communities);
       return communities;

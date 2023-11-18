@@ -69,7 +69,6 @@ export const MentorProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const mentorCharge = await contract.retriveUserCharge(account);
-      console.log(Number(mentorCharge));
       setCharges(Number(mentorCharge));
     } catch (error) {
       console.log(error.message);
@@ -80,7 +79,6 @@ export const MentorProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const profiles = await contract.retreiveAllMentor();
-      console.log(profiles);
       setAllMentors(profiles);
     } catch (error) {
       console.log(error.message);

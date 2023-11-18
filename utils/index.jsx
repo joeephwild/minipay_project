@@ -85,35 +85,43 @@ export const mentors = [
 
 export const languages = [
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffrance.e6360013.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffrance.e6360013.png&w=128&q=75",
     name: "French",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fenglish.7f45068e.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fenglish.7f45068e.png&w=128&q=75",
     name: "English",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpolish.ac41e377.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fpolish.ac41e377.png&w=128&q=75",
     name: "Polish",
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_South_Korea.png",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_South_Korea.png",
     name: "Korean",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fspanish.a1908c03.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fspanish.a1908c03.png&w=128&q=75",
     name: "Spanish",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fgerman.1a4c77a4.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fgerman.1a4c77a4.png&w=128&q=75",
     name: "German",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fchinese.2b995ea2.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fchinese.2b995ea2.png&w=128&q=75",
     name: "Chinese",
   },
   {
-    image: "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdutch.05b16c3d.png&w=128&q=75",
+    image:
+      "https://di-hack.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdutch.05b16c3d.png&w=128&q=75",
     name: "Dutch",
   },
 ];
@@ -325,26 +333,26 @@ export const quizDataKoreanToEnglish = [
   },
 ];
 
-export const Packages =  [
+export const Packages = [
   {
     package_id: 1,
     name: "Bronze Package",
     image_url: reward,
-    price_in_ether: 0.005,
-    lives_received: 20
+    price_in_ether: "0.05",
+    lives_received: 20,
   },
   {
     package_id: 2,
     name: "Silver Package",
     image_url: reward,
-    price_in_ether: 0.01,
-    lives_received: 30
+    price_in_ether: "0.1",
+    lives_received: 30,
   },
   {
     package_id: 3,
     name: "Gold Package",
     image_url: reward,
-    price_in_ether: 0.02,
-    lives_received: 50
-  }
-]
+    price_in_ether: "1.0",
+    lives_received: 50,
+  },
+];

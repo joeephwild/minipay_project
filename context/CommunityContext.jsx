@@ -21,7 +21,6 @@ export const CommunityProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isUserMember, setIsUserMember] = useState(false);
   const { address, isConnected } = useAccount();
-  console.log(address);
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
@@ -70,7 +69,6 @@ export const CommunityProvider = ({ children }) => {
       const contract = await conectwithContract();
       // Call the retreiveCommunity function
       const communities = await contract.fetchPostByCommunityId(_communityID);
-      console.log(communities);
       setAllCommunityPost(communities)
       // Return the result
       return communities;

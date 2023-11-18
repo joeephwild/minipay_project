@@ -57,7 +57,7 @@ const PostCard = ({ item }) => {
           <button className="btn" onClick={commentPost}>
             <AiOutlineComment size={24} />
           </button>
-          <button className="btn" onClick={tipPost}>
+          <button className="btn" onClick={() => tipPost(item.contentOwner, "1")}>
             <MdOutlineAttachMoney size={24} />
           </button>
         </div>

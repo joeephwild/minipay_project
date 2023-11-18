@@ -13,7 +13,6 @@ const WinModal = ({ closeModal, actionButton }) => {
     try {
       const tx = await claimNFTS("Korean")
       setTransactionHash(tx)
-      console.log(tx)
     } catch (error) {
       console.log(error.message);
     }

@@ -43,8 +43,6 @@ export const LacentContentProvider = ({ children }) => {
         _contentImage,
         _contentDescription,
         _contentLink,
-        _contentOwnerName,
-        _shortTag,
         _category,
         _amount
       );
@@ -61,7 +59,6 @@ export const LacentContentProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const buyers = await contract.retrieveBuyers();
-      console.log(buyers);
       return buyers;
     } catch (error) {
       console.log(error);
@@ -72,7 +69,6 @@ export const LacentContentProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const allContent = await contract.retrieveAllContent();
-      console.log(allContent);
       setAllContent(allContent);
       return allContent;
     } catch (error) {

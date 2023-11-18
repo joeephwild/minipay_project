@@ -156,10 +156,7 @@ export default function Navbar() {
               </button>
             )}
             {address && (
-              <button
-                onClick={disconnect}
-                className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg"
-              >
+              <button className="text-Black flex items-center bg-Accent px-6 py-2.5 rounded-lg">
                 <Image
                   src="https://images.pexels.com/photos/18311326/pexels-photo-18311326/free-photo-of-a-woman-with-red-hair-and-green-jacket.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
                   alt="profile"

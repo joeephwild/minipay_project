@@ -30,7 +30,7 @@ export const LacentBadgeProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const tx = await contract.safeMint(badgeName);
-      console.log(tx.hash);
+      // console.log(tx.hash);
       await tx.wait();
       return `https://explorer.testnet.aurora.dev/tx/${tx.hash}`;
     } catch (error) {
@@ -42,7 +42,6 @@ export const LacentBadgeProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const badges = await contract.retriveAllBadge();
-      console.log(badges);
       setAllBadges(badges);
     } catch (error) {
       console.log(error.message);

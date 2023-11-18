@@ -14,7 +14,6 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
   const { createCommunity } = useFlow();
 
   const handleImageUpload = async (e) => {
-    
     const file = e.target.files[0];
 
     if (file) {
@@ -22,9 +21,12 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
         const uploadResult = await uploadFile(file);
         const audioUrl = `https://arweave.net/${uploadResult.id}`;
         // Here you can store the `imageHash` or display a link to the IPFS image
-        console.log("IPFS Image Hash:", audioUrl);
+
         setCommunityImage(audioUrl);
         // You can also save the `imageHash` to your component's state or perform other actions.
+        if (audioUrl) {
+          alert("upload successfull");
+        }
       } catch (error) {
         console.error("Error uploading image to IPFS:", error);
       }
@@ -32,7 +34,7 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Implement your logic for community creation here
     const receipt = await createCommunity(
       communityName,

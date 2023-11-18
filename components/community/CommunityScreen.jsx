@@ -9,18 +9,18 @@ import { useCommunity } from "../../context/CommunityContext";
 import { uploadFile } from "@mintbase-js/storage";
 
 const CommunityScreen = ({ selectedCommunity }) => {
-  const { walletAddress, ifMember } = useFlow();
   const [isPartOfCommunity, setIsPartOfCommunity] = useState(false);
-  const { allCommunityPost, retriveCommunityPost } = useCommunity();
-  console.log(allCommunityPost)
+  const { retriveCommunityPost } = useCommunity();
+  const [allCommunityPost, setAllCommunityPost] = useState([]);
 
   const { address } = useAccount();
   useEffect(() => {
     const retrive = async () => {
-      retriveCommunityPost(0);
+      const result = await retriveCommunityPost(selectedCommunity.communityId);
+      setAllCommunityPost(result)
     };
     retrive();
-  }, [address]);
+  }, [address, allCommunityPost]);
 
   // Check if the user is part of the selected community
   useEffect(() => {
@@ -113,9 +113,11 @@ const SubmitPost = ({ isPartOfCommunity, selectedCommunity }) => {
         const uploadResult = await uploadFile(file);
         const audioUrl = `https://arweave.net/${uploadResult.id}`;
         // Here you can store the `imageHash` or display a link to the IPFS image
-        console.log("IPFS Image Hash:", audioUrl);
         setFile(audioUrl);
         // You can also save the `imageHash` to your component's state or perform other actions.
+        if(audioUrl){
+          alert("upload sucessfull")
+        }
       } catch (error) {
         console.error("Error uploading image to IPFS:", error);
       }

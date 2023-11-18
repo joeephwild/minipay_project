@@ -56,7 +56,6 @@ export const UserProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const name = await contract.retrieveUserName(account);
-      console.log(name);
       setAccountName(name);
     } catch (error) {
       console.log(error.message);
@@ -67,7 +66,6 @@ export const UserProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const name = await contract.retrieveLearnLanguage(account);
-      console.log(name);
     } catch (error) {
       console.log(error.message);
     }
@@ -77,7 +75,6 @@ export const UserProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       const name = await contract.retriveallAccount();
-      console.log(name);
     } catch (error) {
       console.log(error.message);
     }
