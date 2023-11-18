@@ -42,9 +42,11 @@ export const FlowProvider = ({ children }) => {
       window.ethereum.request({ method: "eth_accounts" }).then((accounts) => {
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);
-          setHideConnectBtn(true)
+          setHideConnectBtn(true);
         }
       });
+    } else {
+      alert("Ethereum desnt exist");
     }
   }, []);
 
@@ -110,6 +112,10 @@ export const FlowProvider = ({ children }) => {
         // Retrieve the tx hash from the receipt
         const transactionHash = receipt.transactionHash;
 
+        if (transactionHash) {
+          location.reload();
+        }
+
         // You may want to add additional logic here, such as updating state or showing a success message.
         return transactionHash;
       }
@@ -124,7 +130,13 @@ export const FlowProvider = ({ children }) => {
     try {
       const contract = await conectwithContract();
       if (contract) {
-        await contract.joinACommunity(communityId);
+        const tx = await contract.joinACommunity(communityId);
+
+        const receipt = tx.wait();
+
+        if (receipt) {
+          location.reload();
+        }
         // You may want to add additional logic here, such as updating state or showing a success message.
       }
     } catch (error) {
@@ -147,12 +159,13 @@ export const FlowProvider = ({ children }) => {
     }
   };
 
-  const ifMember = async () => {
+  const ifMember = async (_communityId) => {
     try {
       if (address) {
         const contract = await conectwithContract();
-        const isMember = contract.checkIfMember(address);
+        const isMember = contract.isUserMemberOfCommunity(_communityId, walletAddress);
         setIsUserMember(isMember);
+        return isMember
       }
     } catch (error) {
       console.log("error checking if memeber", error.message);
@@ -162,7 +175,7 @@ export const FlowProvider = ({ children }) => {
   useEffect(() => {
     retriveUserCommunity();
     ifMember();
-  }, [address]);
+  }, [walletAddress]);
 
   return (
     <FlowContext.Provider
@@ -179,7 +192,8 @@ export const FlowProvider = ({ children }) => {
         setHideConnectBtn,
         walletAddress,
         connectWallet,
-        setWalletAddress
+        setWalletAddress,
+        ifMember
       }}
     >
       {children}

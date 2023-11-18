@@ -9,13 +9,15 @@ import { useCommunity } from "../../context/CommunityContext";
 import { uploadFile } from "@mintbase-js/storage";
 
 const CommunityScreen = ({ selectedCommunity }) => {
+  const { walletAddress, ifMember } = useFlow();
   const [isPartOfCommunity, setIsPartOfCommunity] = useState(false);
+  const { allCommunityPost, retriveCommunityPost } = useCommunity();
+  console.log(allCommunityPost)
+
   const { address } = useAccount();
-  const { allCommunityPost, retriveUserCommunity } = useCommunity();
-  console.log(Number(allCommunityPost?.contentCommunityID));
   useEffect(() => {
     const retrive = async () => {
-      retriveUserCommunity(Number(allCommunityPost?.contentCommunityID));
+      retriveCommunityPost(0);
     };
     retrive();
   }, [address]);
@@ -24,7 +26,7 @@ const CommunityScreen = ({ selectedCommunity }) => {
   useEffect(() => {
     // Assuming 'communities' is an array of community IDs the user is part of
     const userIsPartOfCommunity =
-      selectedCommunity?.communityMembers.includes(address);
+      selectedCommunity.communityMembers.includes(address);
     console.log(userIsPartOfCommunity);
     setIsPartOfCommunity(userIsPartOfCommunity);
   }, [selectedCommunity, address]);
@@ -32,7 +34,7 @@ const CommunityScreen = ({ selectedCommunity }) => {
   const { joinCommunity } = useFlow();
 
   const handleJoinCommunity = async () => {
-    joinCommunity(1);
+    joinCommunity(Number(selectedCommunity?.communityId));
   };
 
   return (
@@ -97,8 +99,7 @@ const SubmitPost = ({ isPartOfCommunity, selectedCommunity }) => {
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
 
-  const { createPost, retriveUserCommunity } = useCommunity();
-  const { address } = useAccount();
+  const { createPost } = useCommunity();
 
   const handleTextChange = (e) => {
     setText(e.target.value);

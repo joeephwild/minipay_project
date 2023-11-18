@@ -65,7 +65,7 @@ export const CommunityProvider = ({ children }) => {
     }
   };
 
-  const retriveUserCommunity = async (_communityID) => {
+  const retriveCommunityPost = async (_communityID) => {
     try {
       const contract = await conectwithContract();
       // Call the retreiveCommunity function
@@ -90,7 +90,7 @@ export const CommunityProvider = ({ children }) => {
         isUserMember,
         createPost,
         setActive,
-        retriveUserCommunity
+        retriveCommunityPost
       }}
     >
       {children}

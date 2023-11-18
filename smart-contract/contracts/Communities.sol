@@ -1,6 +1,6 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.18;
 
 contract Communities {
     struct Community {
@@ -19,6 +19,17 @@ contract Communities {
 
     uint256 public totalCommunities;
 
+    // Helper function to check if a user is a member of a specific community
+    function isUserMemberOfCommunity(uint256 _communityId, address _member) internal view returns (bool) {
+    Community storage community = allCommunities[_communityId];
+    for (uint256 i = 0; i < community.communityMembers.length; i++) {
+        if (community.communityMembers[i] == _member) {
+            return true;
+        }
+    }
+    return false;
+    }
+
     function createCommunity(string memory _communityName, string memory _communityDescription, string memory _image) external {
         Community memory newCommunity = Community({
             communityName: _communityName,
@@ -32,13 +43,15 @@ contract Communities {
         totalCommunities++;
     }
 
-    function joinACommunity(uint256 _communityId) external {
-        require(!isCommunityMember[msg.sender], "You are already a member of this community");
-        //ccheck if community exist
-        require(_communityId < totalCommunities, "This community does not exist");
-        allCommunities[_communityId].communityMembers.push(msg.sender);
-        isCommunityMember[msg.sender] = true;
-    }
+  function joinACommunity(uint256 _communityId) external {
+    require(_communityId < totalCommunities, "This community does not exist");
+
+    // Check if the user is not already a member of the community
+    require(!isUserMemberOfCommunity(_communityId, msg.sender), "You are already a member of this community");
+
+    allCommunities[_communityId].communityMembers.push(msg.sender);
+    isCommunityMember[msg.sender] = true;
+}
 
     function leaveCommunity(uint256 _communityId) external {
     require(isCommunityMember[msg.sender], "You are not a member of this community");
@@ -77,14 +90,6 @@ contract Communities {
 
     function retreiveAllCommunities() external view returns (Community[] memory) {
         return allCommunities;
-    }
-
-    function checkIfMember(address _member) external view returns (bool) {
-        return isCommunityMember[_member];
-    }
-
-    function retrieveCommunityMembers(uint256 _communityId) external view returns (address[] memory) {
-        return allCommunities[_communityId].communityMembers;
     }
 
     //function to retrive all the community a user is a member of
