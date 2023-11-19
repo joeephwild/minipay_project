@@ -13,15 +13,16 @@ const PodcastCard = ({ item }) => {
   const [isPurchased, setIsPurcahsed] = useState(false);
 
   const handlePurcahse = async (id, amount) => {
-    await transferCUSD(id, amount);
+    const res = await transferCUSD(id, amount);
+    setIsPurcahsed(true);
   };
 
-  // Check if the user is part of the selected community
-  useEffect(() => {
-    // Assuming 'communities' is an array of community IDs the user is part of
-    const userIsPartOfCommunity = item.buyer.includes(address);
-    setIsPurcahsed(userIsPartOfCommunity);
-  }, [item, address]);
+  // // Check if the user is part of the selected community
+  // useEffect(() => {
+  //   // Assuming 'communities' is an array of community IDs the user is part of
+  //   const userIsPartOfCommunity = item.buyer.includes(address);
+  //   setIsPurcahsed(userIsPartOfCommunity);
+  // }, [item, address]);
 
   return (
     <div className="md:max-w-[300px] w-full bg-white border border-gray-300 rounded-md overflow-hidden  shadow-md">

@@ -44,9 +44,15 @@ const Podcast = () => {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-[33px] gap-y-11 mb-[60px] mt-[20px] sm:mt-[62px]">
-          {allContent.map((item) => (
-            <PodcastCard key={Number(item.id)} item={item} />
-          ))}
+          {!allContent ? (
+            <div>No Content Available</div>
+          ) : (
+            <div>
+              {allContent?.map((item) => (
+                <PodcastCard key={Number(item.id)} item={item} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </DefaultLayout>
