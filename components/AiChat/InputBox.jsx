@@ -4,14 +4,13 @@ import fetchAIResponse from "../../lib/mindb";
 import { db } from "../../firebase";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import { useFlow } from "../../context/FlowContext";
-import { useAccount } from "@particle-network/connect-react-ui";
+import { useAccount } from "wagmi";
 import { useUser } from "../../context/ProfileContext";
-
 
 const InputBox = ({ setText, text }) => {
   const [loading, setIsLoading] = useState(false);
-  const { accountName }  = useUser()
-  const account = useAccount()
+  const { accountName } = useUser();
+  const { address: account } = useAccount();
   const sendMessage = async () => {
     try {
       if (text.trim() === "") return alert("input a message");

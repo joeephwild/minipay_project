@@ -5,7 +5,6 @@ import { MentorProvider } from "../context/MentorContext";
 import { CommunityProvider } from "../context/CommunityContext";
 import { LacentBadgeProvider } from "../context/Badge";
 import { LacentContentProvider } from "../context/LacentContentContext";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { Alfajores, Celo, Cannoli } from "@celo/rainbowkit-celo/chains";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -31,21 +30,19 @@ const appInfo = {
 function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} appInfo={appInfo} coolMode={true}>
-        <FlowProvider>
-          <CommunityProvider>
-            <MentorProvider>
-              <UserProvider>
-                <LacentBadgeProvider>
-                  <LacentContentProvider>
-                    <Component {...pageProps} />
-                  </LacentContentProvider>
-                </LacentBadgeProvider>
-              </UserProvider>
-            </MentorProvider>
-          </CommunityProvider>
-        </FlowProvider>
-      </RainbowKitProvider>
+      <FlowProvider>
+        <CommunityProvider>
+          <MentorProvider>
+            <UserProvider>
+              <LacentBadgeProvider>
+                <LacentContentProvider>
+                  <Component {...pageProps} />
+                </LacentContentProvider>
+              </LacentBadgeProvider>
+            </UserProvider>
+          </MentorProvider>
+        </CommunityProvider>
+      </FlowProvider>
     </WagmiConfig>
   );
 }

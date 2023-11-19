@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Navbar from "../components/Navbar";
 import PodcastCard from "../components/podcast/PodcastCard";
 import { SearchIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
+import { useLacentContent } from "../context/LacentContentContext";
+import { useFlow } from "../context/FlowContext";
 
 const Podcast = () => {
   const route = useRouter();
-  const [allPodcast, setAllPodcast] = useState([1, 2, 3, 4, 5, 6]);
-  
+  const { walletAddress } = useFlow();
+  const [allContent, setAllContent] = useState([]);
+  const { getAllContent } = useLacentContent();
+  console.log(allContent);
+
+  useEffect(() => {
+    const getContent = async () => {
+      const result = await getAllContent();
+      console.log(result);
+      setAllContent(result);
+    };
+    getContent();
+  }, [walletAddress, getAllContent]);
+
   return (
     <DefaultLayout>
       <Navbar />
@@ -30,14 +44,8 @@ const Podcast = () => {
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 sm:gap-x-[33px] gap-y-11 mb-[60px] mt-[20px] sm:mt-[62px]">
-          {allPodcast.map((item, i) => (
-            <PodcastCard
-              key={i}
-              title="Sample Podcast"
-              host="John Doe"
-              imageUrl="https://images.pexels.com/photos/18512532/pexels-photo-18512532/free-photo-of-a-mountain-range-with-a-small-pond-in-the-foreground.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            />
+          {allContent.map((item) => (
+            <PodcastCard key={Number(item.id)} item={item} />
           ))}
         </div>
       </div>

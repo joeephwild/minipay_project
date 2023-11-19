@@ -6,6 +6,7 @@ import ipfsClient from "ipfs-http-client";
 import { uploadFile } from "@mintbase-js/storage";
 import ConnectModal from "../components/ConnectModal";
 import { useUser } from "../context/ProfileContext";
+import { ethers } from "ethers";
 
 const BeAMentor = () => {
   const route = useRouter();
@@ -16,7 +17,6 @@ const BeAMentor = () => {
   const [preferredImage, setPreferredImage] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [shortDesc, setShortDesc] = useState("");
   const [name, setName] = useState("");
   const [contentFile, setContentFile] = useState("");
   const [subscriptionCharge, setSubscriptionCharge] = useState("");
@@ -62,15 +62,15 @@ const BeAMentor = () => {
 
   const handleSubmit = async () => {
     try {
+      let price = ethers.utils.parseEther(subscriptionCharge);
       // Pass the state variables to the createAcontent function
       await createAContent(
         name,
         preferredImage,
         description,
         contentFile,
-        accountName,
         category,
-        subscriptionCharge
+        price
       );
     } catch (error) {
       console.log(error.message);

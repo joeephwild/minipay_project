@@ -23,9 +23,9 @@ export function useTransferCUSD() {
         alert("Insufficient balance");
         return;
       } else {
-        let abi = ["function sendValue(address payable recipient, uint256 amount)"];
+        let abi = ["function transfer(address to, uint256 amount)"];
         const CUSDContract = new ethers.Contract(CUSD_ADDRESS, abi, signer);
-        const tx = CUSDContract.sendValue(address, price);
+        const tx = CUSDContract.transfer(address, price);
         let receipt = await tx.wait();
         return receipt;
       }

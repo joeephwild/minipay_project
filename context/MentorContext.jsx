@@ -53,8 +53,6 @@ export const MentorProvider = ({ children }) => {
         _chargingPrice,
         _aboutYou,
         _experience,
-        _contact,
-        _userName
       );
       console.log(tx.hash);
       await tx.wait();

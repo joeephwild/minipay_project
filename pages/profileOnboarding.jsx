@@ -10,12 +10,6 @@ const ProfileOnboarding = () => {
   const route = useRouter();
   const { createAContent } = useLacentContent();
   const { accountName } = useUser();
-  const [selectedSpeakLanguage, setSelectedSpeakLanguage] = useState("");
-  const [selectedLearnLanguage, setSelectedLearnLanguage] = useState("");
-  const [userName, setUserName] = useState("");
-  const [image, setImage] = useState("");
-  const [step, setStep] = useState(1);
-  const router = useRouter();
 
   // Define state variables
   const [preferredImage, setPreferredImage] = useState("");
@@ -45,15 +39,15 @@ const ProfileOnboarding = () => {
 
   const handleSubmit = async () => {
     try {
-      // Pass the state variables to the createAcontent function
-      await createAContent(
-        name,
-        preferredImage,
-        contentFile,
-        accountName,
-        number,
-        category,
-      );
+      const asv2 = new ASv2();
+      try {
+        await registerAttestation(number, USER_ACCOUNT);
+        console.log("attestation registered");
+      } catch (err) {
+        // mostly likely reason registering would fail is if this issuer has already
+        // registered a mapping between this number and account
+      }
+      console.log(await lookupAddresses(number));
     } catch (error) {
       console.log(error.message);
     }
@@ -74,7 +68,9 @@ const ProfileOnboarding = () => {
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-gray-700">What Language do you want to learn ?</label>
+              <label className="block text-gray-700">
+                What Language do you want to learn ?
+              </label>
               <select
                 name=""
                 id=""

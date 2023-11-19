@@ -3,6 +3,7 @@ import { XIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { useMentor } from "../context/MentorContext";
 import ConnectModal from "../components/ConnectModal";
+import { ethers } from "ethers";
 
 const BeAMentor = () => {
   const route = useRouter();
@@ -17,12 +18,13 @@ const BeAMentor = () => {
 
   const handleSubmit = async () => {
     try {
+      let price = ethers.utils.parseEther(subscriptionCharge);
       // Pass the state variables to the beAMentor function
       await beAMentor(
         languageToMentor,
-        subscriptionCharge,
+        price,
         aboutYourself,
-        languageExperience,
+        languageExperience
       );
     } catch (error) {
       console.log(error.message);

@@ -1,5 +1,4 @@
 import { boy, plant } from "../assets/images";
-import "@particle-network/connect-react-ui/dist/index.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -8,7 +7,6 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { useFlow } from "../context/FlowContext";
 import { publicProvider } from "wagmi/providers/public";
 import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Hero = () => {
   const { walletAddress, connectWallet, hideConnectBtn } = useFlow();

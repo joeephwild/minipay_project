@@ -2,6 +2,7 @@ import { useAccount } from "wagmi";
 import { createContext, useContext, useState, useEffect } from "react";
 import { LacentContentAbi, LacentContentAddress } from "../constants/contract";
 import { BigNumber, ethers } from "ethers";
+import { useFlow } from "./FlowContext";
 
 const LacentContentContext = createContext();
 
@@ -11,16 +12,25 @@ export const LacentContentProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [allContent, setAllContent] = useState([]);
   const { address: account } = useAccount();
+  const { walletAddress } = useFlow();
 
   const contentAddress = LacentContentAddress;
   const contentABI = LacentContentAbi;
 
   const conectwithContract = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window?.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(contentAddress, contentABI, signer);
-      return contract;
+      if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window?.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          contentAddress,
+          contentABI,
+          signer
+        );
+        return contract;
+      }else{
+        alert("noe eth")
+      }
     } catch (error) {
       console.log(error);
     }
@@ -31,8 +41,6 @@ export const LacentContentProvider = ({ children }) => {
     _contentImage,
     _contentDescription,
     _contentLink,
-    _contentOwnerName,
-    _shortTag,
     _category,
     _amount
   ) => {
@@ -93,9 +101,7 @@ export const LacentContentProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    getAllContent();
-  }, [account]);
+
 
   return (
     <LacentContentContext.Provider
@@ -106,6 +112,7 @@ export const LacentContentProvider = ({ children }) => {
         allContent,
         purcahseAContent,
         conectwithContract,
+        getAllContent
       }}
     >
       {children}

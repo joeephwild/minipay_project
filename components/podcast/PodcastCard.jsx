@@ -1,40 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLacentContent } from "../../context/LacentContentContext";
 import Image from "next/image";
 import { ClockIcon } from "@heroicons/react/solid";
 import { useAccount } from "wagmi";
+import { ethers } from "ethers";
+import { useTransferCUSD } from "../../constants/transferCUSD";
 
-const PodcastCard = ({ title, host, imageUrl, description }) => {
+const PodcastCard = ({ item }) => {
   const { allContent, purcahseAContent } = useLacentContent();
-  const account = useAccount();
+  const { transferCUSD } = useTransferCUSD();
+  const { address } = useAccount();
   const [isPurchased, setIsPurcahsed] = useState(false);
 
   const handlePurcahse = async (id, amount) => {
-    await purcahseAContent(id, amount);
+    await transferCUSD(id, amount);
   };
+
+  // Check if the user is part of the selected community
+  useEffect(() => {
+    // Assuming 'communities' is an array of community IDs the user is part of
+    const userIsPartOfCommunity = item.buyer.includes(address);
+    setIsPurcahsed(userIsPartOfCommunity);
+  }, [item, address]);
 
   return (
     <div className="md:max-w-[300px] w-full bg-white border border-gray-300 rounded-md overflow-hidden  shadow-md">
       <Image
-        src="https://images.pexels.com/photos/18512532/pexels-photo-18512532/free-photo-of-a-mountain-range-with-a-small-pond-in-the-foreground.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-        alt={title}
+        src={item.contentImage}
+        alt={item.contentName}
         width={400}
         height={400}
         className="w-full h-40 object-cover object-center"
       />
       <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-2">Hosted by {host}</p>
-        <p className="text-gray-700">{description}</p>
+        <h3 className="text-lg font-semibold mb-2">{item.contentName}</h3>
+        <p className="text-gray-600 mb-2">Category: {item.category}</p>
+        <p className="text-gray-700">{item.contentDescription}</p>
       </div>
 
       {!isPurchased && (
-        <div onClick={() => setIsPurcahsed(true)} className="bg-Accent p-3 flex justify-between items-center">
+        <div
+          onClick={() =>
+            handlePurcahse(
+              item.contentOwner,
+              Number(ethers.utils.formatEther(item.amount)).toString()
+            )
+          }
+          className="bg-Accent p-3 flex justify-between items-center"
+        >
           <button className="text-sm text-Black focus:outline-none">
             Purchase Now
           </button>
           <div className="flex items-center space-x-2">
-            <span className="text-gray-500">$23</span>
+            <span className="text-gray-500">
+              {Number(ethers.utils.formatEther(item.amount))}{" "}
+              <span className="text-yellow-200">cUSD</span>
+            </span>
           </div>
         </div>
       )}
