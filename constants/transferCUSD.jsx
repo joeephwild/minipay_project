@@ -14,21 +14,13 @@ export function useTransferCUSD() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner(walletAddress);
 
-      const balance = await signer.getBalance();
-
       let price = ethers.utils.parseEther(amount);
 
-      // Check if balance is less than the amount to be transferred
-      if (balance < price) {
-        alert("Insufficient balance");
-        return;
-      } else {
-        let abi = ["function transfer(address to, uint256 amount)"];
-        const CUSDContract = new ethers.Contract(CUSD_ADDRESS, abi, signer);
-        const tx = CUSDContract.transfer(address, price);
-        let receipt = await tx.wait();
-        return receipt;
-      }
+      let abi = ["function transfer(address to, uint256 amount)"];
+      const CUSDContract = new ethers.Contract(CUSD_ADDRESS, abi, signer);
+      const tx = CUSDContract.transfer(address, price);
+      let receipt = await tx.wait();
+      return receipt;
     }
   };
 
