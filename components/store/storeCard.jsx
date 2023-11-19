@@ -18,7 +18,7 @@ const StoreCard = ({ item }) => {
   };
 
   return (
-    <div className="md:max-w-[300px] w-full bg-white border border-gray-300 rounded-md overflow-hidden shadow-md">
+    <div className="md:max-w-[300px] w-full bg-white border border-gray-300  rounded-md overflow-hidden shadow-md">
       <Image
         src={item.image_url}
         alt="store"
