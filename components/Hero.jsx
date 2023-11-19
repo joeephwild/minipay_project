@@ -64,17 +64,7 @@ const Hero = () => {
               </div>
             )}
           </div>
-          {/* 
-          {!isConnected && (
-            <div className=" flex items-center">
-              <button
-                onClick={() => connect()}
-                className="bg-Accent text-Black px-[20px] py-[12px] rounded-[8px] text-[12px] lg:text-[16px] lg:px-[26px] font-bold"
-              >
-                {userAddress}
-              </button>
-            </div>
-          )} */}
+          {walletAddress}
 
           <button className="border-2 border-Accent text-Black px-[20px] lg:text-[16px] lg:px-[26px] py-[12px] rounded-[8px] text-[12px] font-bold">
             Learn More

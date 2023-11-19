@@ -1,19 +1,8 @@
 import React from "react";
-import { useLacentContent } from "../../context/LacentContentContext";
 import Image from "next/image";
-import { ClockIcon } from "@heroicons/react/solid";
-import {
-  useAccount,
-  useParticleProvider,
-} from "@particle-network/connect-react-ui";
-import { Packages } from "../../utils/index";
-import { ethers } from "ethers";
 import { useTransferCUSD } from "../../constants/transferCUSD";
 
 const StoreCard = ({ item }) => {
-  const { conectwithContract } = useLacentContent();
-  const account = useAccount();
-  const particleProvider = useParticleProvider();
   const { transferCUSD } = useTransferCUSD();
 
   const handlePurchase = async (amount, newLives) => {
