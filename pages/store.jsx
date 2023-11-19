@@ -10,7 +10,7 @@ function Store() {
     <div>
       <DefaultLayout>
         <Navbar />
-        <div className="w-full min-h-screen flex flex-col">
+        <div className="w-full min-h-screen overflow-y-scroll flex flex-col">
           <h1 className="text-black text-xl ml-6 pt-4 pb-4">Lacent Store</h1>
           <div className="flex flex-wrap gap-6 m-6 overflow-y-auto">
             {Packages.map((item, i) => (
