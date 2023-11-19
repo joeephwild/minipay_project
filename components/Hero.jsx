@@ -64,8 +64,6 @@ const Hero = () => {
               </div>
             )}
           </div>
-          {walletAddress}
-
           <button className="border-2 border-Accent text-Black px-[20px] lg:text-[16px] lg:px-[26px] py-[12px] rounded-[8px] text-[12px] font-bold">
             Learn More
           </button>
